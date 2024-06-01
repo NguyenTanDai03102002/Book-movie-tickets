@@ -81,7 +81,7 @@ public class DataInitializer implements CommandLineRunner {
         genreRepository.save(Genre.builder().name("Fantasia").build());
         genreRepository.save(Genre.builder().name("Kinh dị").build());
         genreRepository.save(Genre.builder().name("Lãng mạn").build());
-        genreRepository.save(Genre.builder().name("Khoa học viễn tưởng").build());
+        Genre khvt = genreRepository.save(Genre.builder().name("Khoa học viễn tưởng").build());
         genreRepository.save(Genre.builder().name("Thần thoại").build());
         genreRepository.save(Genre.builder().name("Thể thao").build());
         genreRepository.save(Genre.builder().name("Chiến tranh").build());
@@ -92,28 +92,64 @@ public class DataInitializer implements CommandLineRunner {
         genreRepository.save(Genre.builder().name("Võ thuật").build());
 
         //MOVIE
-        Set<String> casts = new HashSet<>();
-        casts.add("Sandra Bullock");
-        casts.add("Channing Tatum");
-        casts.add("Daniel Radcliffe");
+        Set<String> casts1 = new HashSet<>();
+        casts1.add("Lee Jung Jae");
+        casts1.add("Park Hae Soo");
+        casts1.add("Wi Ha Joon");
 
-        Set<Genre> genreSet = new HashSet<>();
-        genreSet.add(actionGenre);
-        genreSet.add(adventureGenre);
+        Set<Genre> genreSet1 = new HashSet<>();
+        genreSet1.add(actionGenre);
+        genreSet1.add(adventureGenre);
 
         Movie movie1 = movieRepository.save(Movie.builder()
-                .title("The Lost City ")
-                .description("Bộ phim hành động hay The Lost City gây ấn tượng với khán giả nhờ vào khung cảnh thiên nhiên" +
-                        " hùng vĩ và những màn hành động đầy ấn tượng. Câu chuyện xoay quanh vị" +
-                        " tác giả tài năng Loretta Sage, người đã dành cả cuộc đời của mình để khám" +
-                        " phá những địa điểm kỳ lạ và viết sách. Trong chuyến quảng bá sách của mình," +
-                        " cô bị một tỷ phú kỳ quái bắt cóc và ép buộc chỉ đường đến một thành phố bí ẩn," +
-                        " nơi ẩn chứa một kho báu.")
-                .director("Aaron và Adam Nee")
-                .casts(casts)
+                .title("TRÒ CHƠI CON MỰC")
+                .description("Squid Game – Trò Chơi Con Mực (tên tiếng Hàn 오징어 게임) " +
+                        "là một series Hàn Quốc trên Netflix được lấy cảm hứng từ một trò " +
+                        "chơi quen thuộc dành cho trẻ em ở Hàn Quốc ngày xưa. Vào những năm 1980," +
+                        " đây là một trong những trò giải trí phổ biến thường được chơi trên khoảng " +
+                        "sân trống với những hình thù được vẽ trên đất. Squid Game – Trò Chơi Con Mực " +
+                        "(tên tiếng Hàn 오징어 게임) là một series Hàn Quốc trên Netflix được lấy cảm hứng " +
+                        "từ một trò chơi quen thuộc dành cho trẻ em ở Hàn Quốc ngày xưa. Vào những năm " +
+                        "1980, đây là một trong những trò giải trí phổ biến thường được chơi trên khoảng " +
+                        "sân trống với những hình thù được vẽ trên đất.")
+                .director("Hwang Dong-hyuk")
+                .casts(casts1)
                 .duration(112)
-                .genres(genreSet)
+                .genres(genreSet1)
                 .rating((float) 4.5)
+                .image("http://res.cloudinary.com/do9bojdku/image/upload/v1717242487/b8up5j8i6j0hrlwayxx2.jpg")
+                .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717242492/jgjfnbhjt2hjake9hgm0.mp4")
+                .release_date(LocalDate.of(2024,5,1))
+                .end_date(LocalDate.of(2024,6,30))
+                .build());
+
+        Set<String> casts2 = new HashSet<>();
+        casts2.add("Dwayne Johnson");
+        casts2.add("Naomie Harris");
+        casts2.add("Malin Åkerman");
+        casts2.add("Joe Manganiello");
+        casts2.add("Jake Lacy");
+        casts2.add("Marley Shelton");
+        casts2.add("Jeffrey Dean Morgan");
+
+        Set<Genre> genreSet2 = new HashSet<>();
+        genreSet2.add(khvt);
+        Movie movie2 = movieRepository.save(Movie.builder()
+                .title("SIÊU THÚ CUỒNG NỘ")
+                .description("Bộ phim kể về nhà sinh vật học Davis Okoye có mối liên kết khăng khít " +
+                        "với George - một chú gorilla lưng bạc được anh chăm sóc từ nhỏ. Một thí nghiệm " +
+                        "đột biến ngoài ý muốn đã làm biến đổi gorilla thành quái vật khổng lồ hung hăng" +
+                        ". Gorilla cùng những sinh vật bị biến đổi khác đã tấn công con người và đẩy nhân" +
+                        " loại đứng trước hiểm họa diệt vong. Liệu Davis Okoye sẽ làm gì để giành chiến " +
+                        "thắng, không chỉ để ngăn chặn một thảm họa toàn cầu, mà còn để cứu gorilla đã " +
+                        "từng là bạn tốt của mình?")
+                .director("Brad Peyton")
+                .casts(casts2)
+                .duration(112)
+                .genres(genreSet2)
+                .rating((float) 5.5)
+                .image("http://res.cloudinary.com/do9bojdku/image/upload/v1717243220/l0frpo7yaggxzj1oznob.jpg")
+                .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717243224/cmqkux5zxbxrmrio6bnu.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
                 .build());
@@ -405,6 +441,13 @@ public class DataInitializer implements CommandLineRunner {
                 .start(LocalTime.of(10, 30))
                 .auditorium(auditorium1)
                 .movie(movie1)
+                .build());
+
+        screeningRepository.save(Screening.builder()
+                .date(LocalDate.of(2024, 6, 6))
+                .start(LocalTime.of(10, 30))
+                .auditorium(auditorium3)
+                .movie(movie2)
                 .build());
     }
 }

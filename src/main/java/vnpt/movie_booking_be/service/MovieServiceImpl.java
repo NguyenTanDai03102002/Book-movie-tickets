@@ -42,7 +42,7 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public Movie createMovie(String title, Set<Integer> genreIds, String description,
+    public void createMovie(String title, Set<Integer> genreIds, String description,
                              MultipartFile file, MultipartFile video,
                              String director, String casts, String duration, float rating,
                              String releaseDate, String endDate) {
@@ -79,7 +79,7 @@ public class MovieServiceImpl implements MovieService{
         movie.setEnd_date(endDateLocal);
         movie.setGenres(genres);
 
-        return movieRepository.save(movie);
+        movieRepository.save(movie);
     }
 
     @Override

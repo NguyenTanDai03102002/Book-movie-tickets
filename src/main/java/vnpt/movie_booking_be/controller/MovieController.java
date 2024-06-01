@@ -27,7 +27,7 @@ public class MovieController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/create")
-    public Movie createMovie(@RequestParam("title") String title,
+    public void createMovie(@RequestParam("title") String title,
                              @RequestParam("description") String description,
                              @RequestPart("file") MultipartFile file,
                              @RequestPart("video") MultipartFile video,
@@ -39,7 +39,7 @@ public class MovieController {
                              @RequestParam("endDate") String endDate,
                              @RequestParam("genreIds") Set<Integer> genreIds) {
 
-        return movieService.createMovie(title, genreIds, description, file, video,
+        movieService.createMovie(title, genreIds, description, file, video,
                 director, casts, duration, rating, releaseDate, endDate);
     }
 
