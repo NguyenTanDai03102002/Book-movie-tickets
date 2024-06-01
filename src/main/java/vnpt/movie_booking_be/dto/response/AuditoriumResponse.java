@@ -2,6 +2,7 @@ package vnpt.movie_booking_be.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import vnpt.movie_booking_be.models.Cinema;
 
 @Data
 @NoArgsConstructor
@@ -11,4 +12,6 @@ import lombok.experimental.FieldDefaults;
 public class AuditoriumResponse {
      int id;
      String name;
+     CinemaResponse cinema;
+
 }

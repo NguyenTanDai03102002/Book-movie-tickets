@@ -9,6 +9,8 @@ import vnpt.movie_booking_be.models.*;
 import vnpt.movie_booking_be.repository.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 @Component
@@ -39,6 +41,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private ScreeningRepository screeningRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -96,7 +101,7 @@ public class DataInitializer implements CommandLineRunner {
         genreSet.add(actionGenre);
         genreSet.add(adventureGenre);
 
-        movieRepository.save(Movie.builder()
+        Movie movie1 = movieRepository.save(Movie.builder()
                 .title("The Lost City ")
                 .description("Bộ phim hành động hay The Lost City gây ấn tượng với khán giả nhờ vào khung cảnh thiên nhiên" +
                         " hùng vĩ và những màn hành động đầy ấn tượng. Câu chuyện xoay quanh vị" +
@@ -112,24 +117,6 @@ public class DataInitializer implements CommandLineRunner {
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
                 .build());
-
-        movieRepository.save(Movie.builder()
-                .title("The Lost City ")
-                .description("Bộ phim hành động hay The Lost City gây ấn tượng với khán giả nhờ vào khung cảnh thiên nhiên" +
-                        " hùng vĩ và những màn hành động đầy ấn tượng. Câu chuyện xoay quanh vị" +
-                        " tác giả tài năng Loretta Sage, người đã dành cả cuộc đời của mình để khám" +
-                        " phá những địa điểm kỳ lạ và viết sách. Trong chuyến quảng bá sách của mình," +
-                        " cô bị một tỷ phú kỳ quái bắt cóc và ép buộc chỉ đường đến một thành phố bí ẩn," +
-                        " nơi ẩn chứa một kho báu.")
-                .director("Aaron và Adam Nee")
-                .casts(casts)
-                .duration(112)
-                .genres(genreSet)
-                .rating((float) 2.5)
-                .release_date(LocalDate.of(2024,6,2))
-                .end_date(LocalDate.of(2024,6,30))
-                .build());
-
 
         //CINEMA
         Cinema cinema1 = cinemaRepository.save(Cinema.builder()
@@ -413,5 +400,11 @@ public class DataInitializer implements CommandLineRunner {
             factorRepository.save(Factor.builder().dayType(DayType.HOLIDAY).factor((float) 2).cinema(cinema).build());
         }
 
+        screeningRepository.save(Screening.builder()
+                .date(LocalDate.of(2024, 6, 5))
+                .start(LocalTime.of(10, 30))
+                .auditorium(auditorium1)
+                .movie(movie1)
+                .build());
     }
 }

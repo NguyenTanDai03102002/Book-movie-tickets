@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
             user.setEnabled(false);
             user.setCode(UUID.randomUUID().toString());
             userRepository.save(user);
-            
+
             Send(user);
 
         }else{

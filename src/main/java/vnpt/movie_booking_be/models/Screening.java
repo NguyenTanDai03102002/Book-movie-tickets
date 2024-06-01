@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Screening{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private LocalDateTime start;
+    private LocalTime start;
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.EAGER)
