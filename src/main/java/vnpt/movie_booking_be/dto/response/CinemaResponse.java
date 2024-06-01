@@ -15,6 +15,5 @@ public class CinemaResponse {
      int id;
      String name;
      AddressResponse address;
-     Set<AuditoriumResponse> auditoriums;
      Set<FactorResponse> factors;
 }
