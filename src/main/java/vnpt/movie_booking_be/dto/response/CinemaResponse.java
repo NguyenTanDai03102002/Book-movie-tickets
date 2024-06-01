@@ -15,5 +15,4 @@ public class CinemaResponse {
      int id;
      String name;
      AddressResponse address;
-     Set<FactorResponse> factors;
 }
