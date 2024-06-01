@@ -2,6 +2,7 @@ package vnpt.movie_booking_be.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import vnpt.movie_booking_be.dto.response.MovieResponse;
@@ -24,6 +25,7 @@ public class MovieController {
         return movieService.getAllMovies();
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/create")
     public Movie createMovie(@RequestParam("title") String title,
                              @RequestParam("description") String description,
@@ -40,6 +42,7 @@ public class MovieController {
         return movieService.createMovie(title, genreIds, description, file, video, director, casts, duration, rating, releaseDate, endDate);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Integer id, @RequestParam String title,
                                              @RequestParam Set<Integer> genreIds, @RequestParam String description,
