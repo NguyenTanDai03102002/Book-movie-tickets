@@ -13,5 +13,4 @@ public class AuditoriumResponse {
      int id;
      String name;
      CinemaResponse cinema;
-
 }

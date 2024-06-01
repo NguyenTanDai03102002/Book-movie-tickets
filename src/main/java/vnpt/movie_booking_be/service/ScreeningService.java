@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ScreeningService {
     List<ScreeningResponse> getScreeningByCityAndMovie(String city, int movieId);
+
+    List<ScreeningResponse> getScreeningByCinema(int cinemaId);
 }

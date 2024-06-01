@@ -20,9 +20,18 @@ public class ScreeningServiceImpl implements ScreeningService{
     private ScreeningMapper screeningMapper;
 
     @Override
+    public List<ScreeningResponse> getScreeningByCinema(int cinemaId) {
+        List<Screening> screeningList = screeningRepository.findScreeningsByCinema(cinemaId);
+        return screeningList.stream().map(screening -> screeningMapper.toScreeningResponse(screening))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ScreeningResponse> getScreeningByCityAndMovie(String city, int movieId) {
         List<Screening> screeningList = screeningRepository.findScreeningsByCityAndMovie(city,movieId);
         return screeningList.stream().map(screening -> screeningMapper.toScreeningResponse(screening))
                 .collect(Collectors.toList());
     }
+
+
 }

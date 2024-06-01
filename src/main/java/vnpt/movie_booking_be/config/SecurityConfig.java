@@ -39,7 +39,7 @@ public class SecurityConfig {
                         auth.requestMatchers(
                                 "/genre/get/**","/address/getAll",
                                 "/cinema/get/getAll","/cinema/get/getCinemasByCity",
-                                "/screening/getScreeningByCityAndMovie",
+                                "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema",
                                 "/userLogin","/user/createUser",
                                 "/user/verify/**","/movie/getAll").permitAll()
                                 .anyRequest().authenticated()
