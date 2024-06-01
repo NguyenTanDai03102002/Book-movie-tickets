@@ -19,8 +19,8 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    @GetMapping("/getAll")
-    public List<AddressResponse> getAll() {
-        return addressService.getAll();
+    @GetMapping("/getAddressHasCinema")
+    public List<AddressResponse> getAddressHasCinema() {
+        return addressService.getAddressHasCinema();
     }
 }

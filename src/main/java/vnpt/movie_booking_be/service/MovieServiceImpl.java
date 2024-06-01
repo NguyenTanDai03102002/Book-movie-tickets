@@ -162,7 +162,6 @@ public class MovieServiceImpl implements MovieService{
             Movie movie = optionalMovie.get();
             return movieMapper.movieToMovieResponse(movie);
         } else {
-            // Throw an exception or return null depending on your requirements
             throw new RuntimeException("Movie not found with id: " + id);
         }
     }

@@ -39,7 +39,8 @@ public class MovieController {
                              @RequestParam("endDate") String endDate,
                              @RequestParam("genreIds") Set<Integer> genreIds) {
 
-        return movieService.createMovie(title, genreIds, description, file, video, director, casts, duration, rating, releaseDate, endDate);
+        return movieService.createMovie(title, genreIds, description, file, video,
+                director, casts, duration, rating, releaseDate, endDate);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")

@@ -20,8 +20,9 @@ public class AddressServiceImpl implements AddressService {
     private AddressMapper addressMapper;
 
     @Override
-    public List<AddressResponse> getAll() {
-        List<Address> addressList = addressRepository.findAll();
-        return addressList.stream().map(address -> addressMapper.toAddressResponse(address)).collect(Collectors.toList());
+    public List<AddressResponse> getAddressHasCinema() {
+        List<Address> addresses = addressRepository.findAddressHasCinema();
+        return addresses.stream().map(address -> addressMapper.toAddressResponse(address))
+                .collect(Collectors.toList());
     }
 }
