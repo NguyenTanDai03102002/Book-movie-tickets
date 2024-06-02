@@ -37,8 +37,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
-                                "/genre/get/**","/address/getAll","/address/getAddressHasCinema",
-                                "/cinema/get/getAll","/cinema/get/getCinemasByCity",
+                                "/seat/getSeatsById/**",
+                                "/genre/get/**","/address/getAddressHasCinema",
+                                "/cinema/get/**",
+                                "/auditorium/get/**",
                                 "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema",
                                 "/userLogin","/user/createUser",
                                 "/user/verify/**","/movie/getAll").permitAll()

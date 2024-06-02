@@ -9,7 +9,6 @@ import vnpt.movie_booking_be.dto.request.GenreCreationRequest;
 import vnpt.movie_booking_be.dto.response.GenreResponse;
 import vnpt.movie_booking_be.mapper.GenreMapper;
 import vnpt.movie_booking_be.models.Genre;
-import vnpt.movie_booking_be.models.Movie;
 import vnpt.movie_booking_be.repository.GenreRepository;
 import vnpt.movie_booking_be.repository.MovieRepository;
 
@@ -55,13 +54,11 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public void deleteGenre(int genreId) {
         Genre genre = genreRepository.findById(genreId).orElseThrow(() -> new RuntimeException("Genre not found"));
-        for (Movie movie : genre.getMovies()) {
-            movie.getGenres().remove(genre);
-            movieRepository.save(movie);
+        if(!genre.getMovies().isEmpty()){
+            throw new RuntimeException("Genre was used");
+        }else{
+            genreRepository.delete(genre);
         }
-        genre.getMovies().clear();
-
-        genreRepository.delete(genre);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package vnpt.movie_booking_be.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vnpt.movie_booking_be.dto.request.CinemaCreationRequest;
@@ -20,6 +21,13 @@ public class CinemaController {
     @GetMapping("/get/getAll")
     public List<CinemaResponse> getAllCinema() {
         return cinemaService.getAllCinema();
+    }
+
+    @GetMapping("/get/getPage")
+    public List<CinemaResponse> GetAllCinemaPageable(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "5") int size,
+                                                     @RequestParam(required = false) String keyword) {
+        return cinemaService.GetAllCinemaPageable(PageRequest.of(page,size) , keyword);
     }
 
     @GetMapping("/get/getCinemasByCity")

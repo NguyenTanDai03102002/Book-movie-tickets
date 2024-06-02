@@ -25,7 +25,8 @@ public class GenreController {
     }
 
     @GetMapping("/get/getPage")
-    public Page<GenreResponse> GetAllGenrePageable(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+    public Page<GenreResponse> GetAllGenrePageable(@RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "5") int size,
                                                    @RequestParam(required =false) String keyword) {
         return genreService.getAllGenrePageable(PageRequest.of(page,size),keyword);
     }
