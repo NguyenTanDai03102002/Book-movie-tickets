@@ -21,7 +21,10 @@ public class AddressController {
     public List<AddressResponse> getAddressHasCinema() {
         return addressService.getAddressHasCinema();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> db7b916ecd5572526930ee42217ce8956903eb0f
     @GetMapping("/cities")
     public ResponseEntity<List<String>> getCities() {
         List<String> cities = addressService.getDistinctCities();
