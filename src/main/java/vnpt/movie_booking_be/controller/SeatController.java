@@ -15,8 +15,8 @@ public class SeatController {
     @Autowired
     private SeatService seatService;
 
-    @GetMapping("/getSeatsById/{seatId}")
-    public List<SeatResponse> getSeatsById(@PathVariable int seatId) {
-        return seatService.getSeatsById(seatId);
+    @GetMapping("/getSeatsById/{cinemaId}")
+    public List<SeatResponse> getSeatsById(@PathVariable int cinemaId) {
+        return seatService.getSeatsById(cinemaId);
     }
 }

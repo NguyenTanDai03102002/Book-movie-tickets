@@ -24,8 +24,8 @@ public class SeatServiceImpl implements SeatService{
     private SeatMapper seatMapper;
 
     @Override
-    public List<SeatResponse> getSeatsById(int seatId) {
-        Auditorium auditorium = auditoriumRepository.findById(seatId).orElseThrow(()->new RuntimeException("Auditorium not found"));
+    public List<SeatResponse> getSeatsById(int cinemaId) {
+        Auditorium auditorium = auditoriumRepository.findById(cinemaId).orElseThrow(()->new RuntimeException("Auditorium not found"));
         List<Seat> seatList = seatRepository.findSeatsByAuditorium(auditorium);
         return seatList.stream().map(seat -> seatMapper.toSeatResponse(seat)).collect(Collectors.toList());
     }

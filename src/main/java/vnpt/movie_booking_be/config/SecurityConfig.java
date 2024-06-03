@@ -38,8 +38,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
                                 "/seat/getSeatsById/**",
-                                "/genre/get/**","/address/getAddressHasCinema",
+                                "/genre/get/**","/address/getAddressHasCinema","/address/cities","/address/districts","/address/wards","/address/streets",
                                 "/cinema/get/**",
+                                "/factor/getAllFactorByCinema/**",
                                 "/auditorium/get/**",
                                 "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema",
                                 "/userLogin","/user/createUser",
