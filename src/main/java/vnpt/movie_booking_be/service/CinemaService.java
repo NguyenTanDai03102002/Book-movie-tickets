@@ -19,4 +19,7 @@ public interface CinemaService {
     List<CinemaResponse> getCinemasByCity(String city);
 
     List<CinemaResponse> GetAllCinemaPageable(Pageable pageable, String keyword);
+
+
+    CinemaResponse getCinemaById(int cinemaId);
 }

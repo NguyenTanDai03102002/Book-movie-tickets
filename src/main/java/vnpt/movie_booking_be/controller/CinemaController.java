@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import vnpt.movie_booking_be.dto.request.CinemaCreationRequest;
+        import vnpt.movie_booking_be.dto.request.CinemaCreationRequest;
 import vnpt.movie_booking_be.dto.response.CinemaResponse;
 import vnpt.movie_booking_be.service.CinemaService;
 
@@ -53,4 +53,9 @@ public class CinemaController {
     public void updateCinema(@PathVariable int cinemaId,@RequestBody CinemaCreationRequest request) {
         cinemaService.updateCinema(cinemaId,request);
     }
+    @GetMapping("/get/getCinemaById/{cinemaId}")
+    public CinemaResponse getCinemaById(@PathVariable int cinemaId) {
+        return cinemaService.getCinemaById(cinemaId);
+    }
+
 }

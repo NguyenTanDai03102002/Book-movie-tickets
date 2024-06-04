@@ -68,8 +68,12 @@ public class CinemaServiceImpl implements CinemaService {
         cinemaMapper.updateCinema(cinema,request);
         cinemaRepository.save(cinema);
     }
-
-
+    @Override
+    public CinemaResponse getCinemaById(int cinemaId) {
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new RuntimeException("Cinema not found"));
+        return cinemaMapper.toCinemaResponse(cinema);
+}
 
 
 }
