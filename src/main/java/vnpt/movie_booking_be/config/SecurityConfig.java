@@ -44,7 +44,8 @@ public class SecurityConfig {
                                 "/auditorium/get/**",
                                 "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema",
                                 "/userLogin","/user/createUser",
-                                "/user/verify/**","/movie/getAll").permitAll()
+                                "/user/verify/**","/movie/getAll",
+                                "/review/get/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

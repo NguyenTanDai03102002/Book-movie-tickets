@@ -9,8 +9,8 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"address","membership","roles","tickets"})
-@ToString(exclude = {"address","membership","roles","tickets"})
+@EqualsAndHashCode(exclude = {"address","membership","roles","tickets","reviews"})
+@ToString(exclude = {"address","membership","roles","tickets","reviews"})
 @Entity
 public class User {
     @Id
@@ -44,4 +44,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 }

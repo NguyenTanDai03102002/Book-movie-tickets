@@ -1,5 +1,6 @@
 package vnpt.movie_booking_be.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,6 +16,7 @@ public class UserResponse {
      String name;
      String email;
      String phone;
+     @JsonIgnore
      String password;
      AddressResponse address;
      MembershipResponse membership;
