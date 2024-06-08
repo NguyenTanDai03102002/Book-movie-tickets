@@ -69,7 +69,8 @@ public class DataInitializer implements CommandLineRunner {
         //ADMIN
         userRepository.save(User.builder().name("admin").email("admin@gmail.com").phone("0943946242")
                     .password(passwordEncoder.encode("admin")).enabled(true).code(null).roles(roles).build());
-
+        userRepository.save(User.builder().name("dai").email("ndai6618@gmail.com").phone("0943946242")
+                .password(passwordEncoder.encode("dai")).enabled(true).code(null).roles(roles).build());
         //GENRE
         Genre actionGenre = genreRepository.save(Genre.builder().name("Hành động").build());
         Genre adventureGenre = genreRepository.save(Genre.builder().name("Phiêu lưu").build());
