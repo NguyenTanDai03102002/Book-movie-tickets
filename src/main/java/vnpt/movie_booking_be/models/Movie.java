@@ -13,8 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"genres","screenings"})
-@ToString(exclude = {"genres","screenings"})
+@EqualsAndHashCode(exclude = {"genres","screenings","reviews"})
+@ToString(exclude = {"genres","screenings","reviews"})
 @Entity
 public class Movie{
     @Id
@@ -42,5 +42,8 @@ public class Movie{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", orphanRemoval = true)
     private List<Screening> screenings = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie",orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
 }
