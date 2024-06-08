@@ -47,4 +47,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ForgetPassword forgetPassword;
 }
