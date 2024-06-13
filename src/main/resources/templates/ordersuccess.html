@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Thanh toán thành công</title>
+</head>
+
+<body>
+<!-- back to top -->
+
+<!-- start body -->
+<div class="body py-5">
+    <div class="container">
+        <div class="w-50 m-auto">
+            <h1 class="my-3 text-success text-center">Thanh toán thành công</h1>
+<!--            <h2 class="my-2">Chi tiết đơn hàng </h2>-->
+<!--            <h3> Thông tin phim</h3>-->
+
+            <table class="table table-bordered">
+                <tbody>
+<!--                <tr>-->
+<!--                    <td>orderInfo:</td>-->
+<!--                    <td><span th:text="${orderInfo}">[orderInfo] </span></td>-->
+<!--                </tr>-->
+                <tr>
+                    <td>userName :</td>
+                    <td><span th:text="${userName}">[user Name]</span></td>
+                </tr>
+                <tr>
+                    <td>Tên phim:</td>
+                    <td><span th:text="${moviename}">[movie name] </span></td>
+                </tr>
+                <tr>
+                    <td>Ngày chiếu :</td>
+                    <td><span th:text="${ngaychiu}">[ngaychiu] </span></td>
+                </tr>
+                <tr>
+                    <td>Giờ chiếu :</td>
+                    <td><span th:text="${giochiu}">[gio chiu] </span></td>
+                </tr>
+<!--                <tr>-->
+<!--                    <td>Tên phim:</td>-->
+<!--                    <td><span th:text="${session.getAttribute('moviename')}">[Tên phim]</span></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>Ngày chiếu:</td>-->
+<!--                    <td><span th:text="${session.getAttribute('screeningDate')}">[Ngày chiếu]</span></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>Giờ chiếu:</td>-->
+<!--                    <td><span th:text="${session.getAttribute('screeningStart')}">[Giờ chiếu]</span></td>-->
+<!--                </tr>-->
+                <tr>
+                    <td>Phòng:</td>
+                    <td><span th:text="${phong}">[phong]</span></td>
+                </tr>
+                <tr>
+                    <td>Ghế:</td>
+                    <td><span th:text="${ghe}">[ghe]</span></td>
+                </tr>
+
+                <tr>
+                    <td>Tổng tiền:</td>
+                    <td><span th:text="${totalPrice}">[total price] </span> VND</td>
+                </tr>
+<!--                <tr>-->
+<!--                    <td>Url:</td>-->
+<!--                    <td><span th:text="${url}">[url] </span> </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>qrco:</td>-->
+<!--                    <td><span th:text="${qrco}">[qrco] </span> </td>-->
+<!--                </tr>-->
+                <tr>
+                    <td>Thời gian thanh toán:</td>
+                    <td><span th:text="${giomua}">[gio mua]</span></td>
+                </tr>
+<!--                <tr>-->
+<!--                    <td>Thời gian thanh toán:</td>-->
+<!--                    <td><span th:text="${paymentTime}">[payment time]</span></td>-->
+<!--                </tr>-->
+                <tr>
+                    <td>Mã giao dịch:</td>
+                    <td><span th:text="${transactionId}">[transaction ID]</span></td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="/" class="btn btn-primary">Về trang chủ</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

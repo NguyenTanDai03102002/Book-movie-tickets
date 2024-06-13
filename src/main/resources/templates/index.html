@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Thanh toán</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <img src="../static/vnpay-logo.png" style="width: 200px">
+                    <img th:src="@{/vnpay-logo.png}" style="width: 200px">
+                    <h2 class="card-title">Thanh Toán Đơn Hàng</h2>
+                    <form th:action="@{/submitOrder}" method="post">
+                        <div class="form-group">
+                            <label for="amount">Số tiền:</label>
+                            <input type="number" class="form-control" id="amount" name="amount" required value="12">
+                        </div>
+                        <div class="form-group">
+                            <label for="seatIds">Số ghế:</label>
+                            <input type="text" class="form-control" id="seatIds" name="seatIds" required value="1, 2, 3"> <!-- Thay đổi tên thuộc tính thành seatIds -->
+                        </div>
+
+                        <div class="form-group">
+                            <label for="movieId">ID phim:</label>
+                            <input type="text" class="form-control" id="movieId" name="movieId" required value="1"> <!-- Thay đổi thành movieId -->
+                        </div>
+                        <div class="form-group">
+                            <label for="screeningId">ID suất chiếu:</label>
+                            <input type="text" class="form-control" id="screeningId" name="screeningId" required value="1"> <!-- Thay đổi thành screeningId -->
+                        </div>
+                        <div class="form-group">
+                            <label for="userId">ID người dùng:</label>
+                            <input type="text" class="form-control" id="userId" name="userId" required value="1"> <!-- Thay đổi thành userId -->
+                        </div>
+                        <!-- Các trường cinema và showTime có thể được thêm vào nếu bạn muốn -->
+                        <button type="submit" class="btn btn-primary">Thanh toán</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

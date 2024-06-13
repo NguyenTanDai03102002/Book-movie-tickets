@@ -21,9 +21,11 @@ public class Seat{
     private int number_Seat;
     private String row_Seat;
     private float price;
-    
-    @OneToMany(mappedBy = "seat" , cascade = CascadeType.ALL , orphanRemoval = true)
-   	private Set<Ticket> ticket =  new HashSet<>();
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "auditorium_id")

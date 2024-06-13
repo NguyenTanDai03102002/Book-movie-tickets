@@ -37,6 +37,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
+
+         "/",
+                                "/submitOrder",
+                                "/vnpay-payment",
+                                "/vnpay-payment-app",
                                 "/seat/getSeatsById/**",
                                 "/genre/get/**","/address/getAddressHasCinema","/address/cities","/address/districts","/address/wards","/address/streets",
                                 "/cinema/get/**",
@@ -48,6 +53,14 @@ public class SecurityConfig {
                                 "/review/get/**","/forget/verifyMail","/forget/verifyOtp","/forget/changePassword").permitAll()
                                 .anyRequest().authenticated()
                 )
+//                .authorizeRequests(authorize ->
+//                        authorize
+//                                .antMatchers("/").permitAll()
+//                                .antMatchers("/seat/getSeatsById/**").permitAll()
+//                                .antMatchers("/").permitAll()
+//                                .anyRequest().authenticated()
+//                )
+
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
