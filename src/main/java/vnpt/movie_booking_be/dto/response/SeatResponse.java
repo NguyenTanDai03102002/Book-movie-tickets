@@ -14,5 +14,5 @@ public class SeatResponse {
      String row_Seat;
      float price;
      AuditoriumResponse auditorium;
-
+int seatstatus;
 }

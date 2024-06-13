@@ -39,6 +39,9 @@ public class SecurityConfig {
                         auth.requestMatchers(
 
          "/",
+//
+                                        "/getticketbyusser",
+
                                 "/submitOrder",
                                 "/vnpay-payment",
                                 "/vnpay-payment-app",

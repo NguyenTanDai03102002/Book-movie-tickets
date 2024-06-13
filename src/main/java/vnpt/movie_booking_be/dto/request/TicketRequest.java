@@ -1,103 +1,31 @@
 package vnpt.movie_booking_be.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+
+@Builder
 public class TicketRequest {
-    private String orderInfo;
-    private String totalPrice;
-  //  private String paymentTime;
-    private String transactionId;
-    private String moviename;
-    private String ngaychiu;
-    private String giochiu;
-    private String giomua;
+
+    private int totalPrice;
+    private String movieName;
+    private String date;
+    private String startTime;
+    private String auditoriumName;
+    private String seatInfo;
     private String userName;
-    private String phong;
-    private String ghe;
 
-    public String getOrderInfo() {
-        return orderInfo;
-    }
-
-    public void setOrderInfo(String orderInfo) {
-        this.orderInfo = orderInfo;
-    }
-
-    public String getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
+    public TicketRequest(int totalPrice, String movieName, String date, String startTime, String auditoriumName, String seatInfo, String userName) {
         this.totalPrice = totalPrice;
-    }
-
-//    public String getPaymentTime() {
-//        return paymentTime;
-//    }
-//
-//    public void setPaymentTime(String paymentTime) {
-//        this.paymentTime = paymentTime;
-//    }
-
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getMoviename() {
-        return moviename;
-    }
-
-    public void setMoviename(String moviename) {
-        this.moviename = moviename;
-    }
-
-    public String getNgaychiu() {
-        return ngaychiu;
-    }
-
-    public void setNgaychiu(String ngaychiu) {
-        this.ngaychiu = ngaychiu;
-    }
-
-    public String getGiochiu() {
-        return giochiu;
-    }
-
-    public void setGiochiu(String giochiu) {
-        this.giochiu = giochiu;
-    }
-
-    public String getGiomua() {
-        return giomua;
-    }
-
-    public void setGiomua(String giomua) {
-        this.giomua = giomua;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
+        this.movieName = movieName;
+        this.date = date;
+        this.startTime = startTime;
+        this.auditoriumName = auditoriumName;
+        this.seatInfo = seatInfo;
         this.userName = userName;
-    }
-
-    public String getPhong() {
-        return phong;
-    }
-
-    public void setPhong(String phong) {
-        this.phong = phong;
-    }
-
-    public String getGhe() {
-        return ghe;
-    }
-
-    public void setGhe(String ghe) {
-        this.ghe = ghe;
     }
 }

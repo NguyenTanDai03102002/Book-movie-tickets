@@ -4,27 +4,31 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.*;
-import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
+
 @AllArgsConstructor
 @Builder
 public class TicketResponse {
-    // private int id;
-    int total;
-    Date orderTime;
-    int status;
-  //  List<Integer> seat;
-    Set<SeatResponse> seat;
-    int screeningid;
-    int userid;
-    int movieid;
-
-
+    private String userName;
+    private int movieId;
+    private String movieTitle;
+    private String qrcode; // Thêm trường này
+    private int screeningId;
+    private LocalDate screeningDate;
+    private LocalTime screeningStartTime;
+    private int auditoriumId;
+    private String auditoriumName;
+    private int total;
+    private String rowSeat;
+    private int numberSeat;
 }
+
+

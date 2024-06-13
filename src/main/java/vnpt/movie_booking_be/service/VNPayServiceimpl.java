@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vnpt.movie_booking_be.config.VNPayConfig;
+import vnpt.movie_booking_be.dto.response.TicketResponse;
 import vnpt.movie_booking_be.models.*;
 import vnpt.movie_booking_be.repository.*;
 
@@ -135,6 +136,7 @@ public class VNPayServiceimpl  {
     private ScreeningRepository screeningRepository;
     @Autowired
     private AuditoriumRepository auditoriumRepository;
+
 //    @Autowired
 //    private UserRepository userRepository;
     public Ticket createTicket(int total, List<Integer> seatIds, int screeningId, int userId, int movieId) {
@@ -220,8 +222,13 @@ return ticket;
     public Integer getMovieIdByTicketId(int ticketId) {
         return ticketRepository.findMovieIdByTicketId(ticketId);
     }
+
     public Integer getScreeningIdByTicketId(int ticketId) {
         return ticketRepository.findScreeningIdByTicketId(ticketId);
+    }
+    public Integer gettotalbyticketid(int ticketid)
+    {
+        return ticketRepository.findTotalByTicketId(ticketid);
     }
     @Transactional
     public void updateQRCodeByTicketId(int ticketId, String qrCodeUrl) {
@@ -232,5 +239,18 @@ return ticket;
 
         ticketRepository.save(ticket);
     }
+    public Integer findAuditoriumIdBySeatId(int seatId) {
+        return seatRepository.findAuditoriumIdById(seatId);
+    }
+    public Integer updateseatstatus(int seatid)
+    {
+        return seatRepository.updateSeatStatusByTicketId(seatid);
+    }
 
+    public List<Ticket> findTicketsByUserId(int userId) {
+        return ticketRepository.findByUserId(userId);
+    }
+    public List<TicketResponse> getUserTickets(int userId) {
+        return ticketRepository.findUserTickets(userId);
+    }
 }
