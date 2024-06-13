@@ -455,12 +455,5 @@ public class DataInitializer implements CommandLineRunner {
                 .movie(movie2)
                 .build());
 
-
-        //Ticket
-        ticketRepository.save(Ticket.builder()
-                        .paymentMethod(PaymentMethod.VNPAY)
-                        .orderTime(new Date())
-                        .total(120)
-                .build());
     }
 }
