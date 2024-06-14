@@ -12,6 +12,7 @@ import vnpt.movie_booking_be.dto.response.TicketResponse;
 import vnpt.movie_booking_be.models.Ticket;
 import vnpt.movie_booking_be.repository.SeatRepository;
 import vnpt.movie_booking_be.service.VNPayServiceimpl;
+import vnpt.movie_booking_be.service.TicketService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,7 +22,8 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 public class TicketController {
-    @Autowired
+
+    private TicketService ticketService;
     private VNPayServiceimpl vnPayService;
     @Autowired
             private SeatRepository seatRepository;
@@ -34,11 +36,9 @@ public ResponseEntity<List<TicketResponse>> getUserTickets(@RequestParam("userid
     }
     return ResponseEntity.ok(ticketResponses);
 }
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/getTotalByYear")
+    public List<TicketResponse> getTicketByYear(@RequestParam int year) {
+        return ticketService.getTicketByYear(year);
+    }
 }
-
-
-
-
-
-
-

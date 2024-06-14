@@ -38,4 +38,17 @@ public class UserController {
     public void getUser(@PathVariable int userid,@RequestBody UserCreationRequest request) {
         userService.updateUser(userid,request);
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/disableAccount/{userId}")
+    public void disableAccount(@PathVariable int userId) {
+        userService.disableAccount(userId);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/unDisableAccount/{userId}")
+    public void unDisableAccount(@PathVariable int userId) {
+        userService.unDisableAccount(userId);
+    }
+
 }

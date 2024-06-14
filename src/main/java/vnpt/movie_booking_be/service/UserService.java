@@ -17,4 +17,8 @@ public interface UserService {
     List<UserResponse> getAllUsers();
 
     String verifyUser(String code);
+
+    void disableAccount(int userId);
+
+    void unDisableAccount(int userId);
 }
