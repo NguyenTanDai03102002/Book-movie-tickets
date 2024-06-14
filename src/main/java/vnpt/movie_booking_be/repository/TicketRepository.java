@@ -55,4 +55,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<TicketResponse> findUserTickets(@Param("userId") int userId);
 
 
+    @Query(value = "SELECT * FROM Ticket WHERE YEAR(order_time) = ?1",nativeQuery = true)
+    List<Ticket> findAllByYear(int year);
 }

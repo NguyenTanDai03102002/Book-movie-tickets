@@ -9,7 +9,6 @@ import vnpt.movie_booking_be.models.*;
 import vnpt.movie_booking_be.repository.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -46,6 +45,9 @@ public class DataInitializer implements CommandLineRunner {
     private ScreeningRepository screeningRepository;
 
     @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -63,14 +65,16 @@ public class DataInitializer implements CommandLineRunner {
         //ROLE
         Role adminRole = roleRepository.save(Role.builder().name("ADMIN").build());
         Role userRole = roleRepository.save(Role.builder().name("USER").build());
-        Set<Role> roles = new HashSet<>();
-        roles.add(adminRole);
-        roles.add(userRole);
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(adminRole);
+
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole);
         //ADMIN
         userRepository.save(User.builder().name("admin").email("admin@gmail.com").phone("0943946242")
-                    .password(passwordEncoder.encode("admin")).enabled(true).code(null).roles(roles).build());
+                    .password(passwordEncoder.encode("admin")).enabled(true).code(null).roles(adminRoles).build());
         userRepository.save(User.builder().name("dai").email("ndai6618@gmail.com").phone("0943946242")
-                .password(passwordEncoder.encode("dai")).enabled(true).code(null).roles(roles).build());
+                .password(passwordEncoder.encode("dai")).enabled(true).code(null).roles(userRoles).build());
         //GENRE
         Genre actionGenre = genreRepository.save(Genre.builder().name("Hành động").build());
         Genre adventureGenre = genreRepository.save(Genre.builder().name("Phiêu lưu").build());
@@ -450,5 +454,6 @@ public class DataInitializer implements CommandLineRunner {
                 .auditorium(auditorium3)
                 .movie(movie2)
                 .build());
+
     }
 }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
+import vnpt.movie_booking_be.models.PaymentMethod;
 
 
 import java.time.LocalDate;
@@ -13,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-
 @AllArgsConstructor
 @Builder
 public class TicketResponse {

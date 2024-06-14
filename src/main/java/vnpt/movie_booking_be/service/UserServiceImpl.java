@@ -98,11 +98,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<UserResponse> getAllUsers() {
-        List<User> users = userRepository.findAll();
+        Role roleUser = roleRepository.findByName("USER");
+        List<User> users = userRepository.findByRolesContains(roleUser);
         return users.stream()
                 .map(user -> userMapper.userToUserResponse(user))
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void disableAccount(int userId) {
+        User user = getUser(userId);
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
 
+    @Override
+    public void unDisableAccount(int userId) {
+        User user = getUser(userId);
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
 }
