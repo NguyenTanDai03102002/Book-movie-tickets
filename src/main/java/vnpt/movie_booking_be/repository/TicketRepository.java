@@ -1,5 +1,6 @@
 package vnpt.movie_booking_be.repository;
 
+<<<<<<< HEAD
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -55,6 +56,15 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<TicketResponse> findUserTickets(@Param("userId") int userId);
 
 
+=======
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import vnpt.movie_booking_be.models.Ticket;
+
+import java.util.List;
+
+public interface TicketRepository extends JpaRepository<Ticket, Integer> {
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
     @Query(value = "SELECT * FROM Ticket WHERE YEAR(order_time) = ?1",nativeQuery = true)
     List<Ticket> findAllByYear(int year);
 }

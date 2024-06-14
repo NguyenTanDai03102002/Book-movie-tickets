@@ -74,6 +74,7 @@ public class ScreeningServiceImpl implements ScreeningService{
         screeningRepository.delete(screening);
     }
 
+<<<<<<< HEAD
     @Override
     public List<ScreeningResponse> getAll() {
         List<Screening> screeningList = screeningRepository.findAll();
@@ -81,4 +82,6 @@ public class ScreeningServiceImpl implements ScreeningService{
                 .collect(Collectors.toList());
     }
 
+=======
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 }

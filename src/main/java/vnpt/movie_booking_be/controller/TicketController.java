@@ -1,5 +1,6 @@
 package vnpt.movie_booking_be.controller;
 
+<<<<<<< HEAD
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,24 @@ public ResponseEntity<List<TicketResponse>> getUserTickets(@RequestParam("userid
     }
     return ResponseEntity.ok(ticketResponses);
 }
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import vnpt.movie_booking_be.dto.response.TicketResponse;
+import vnpt.movie_booking_be.service.TicketService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/ticket")
+@CrossOrigin("*")
+public class TicketController {
+
+    @Autowired
+    private TicketService ticketService;
+
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getTotalByYear")
     public List<TicketResponse> getTicketByYear(@RequestParam int year) {

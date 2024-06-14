@@ -4,18 +4,26 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Set;
+=======
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+<<<<<<< HEAD
 //@EqualsAndHashCode(exclude = {"seat","screening","user"})
 //@ToString(exclude = {"seat","screening","user"})
 @EqualsAndHashCode(exclude = {"seat","screening","user", "movies"})
 @ToString(exclude = {"seat","screening","user", "movies"})
+=======
+@EqualsAndHashCode(exclude = {"seat","screening","user"})
+@ToString(exclude = {"seat","screening","user"})
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 @Entity
 public class Ticket {
     @Id
@@ -24,6 +32,7 @@ public class Ticket {
     
     private int total;
     
+<<<<<<< HEAD
     private Date orderTime;  // tụư getdatetime now
     
     private int status;  // mới thnah toán xong tự set =0
@@ -34,6 +43,19 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Seat> seats = new HashSet<>();
 
+=======
+    private Date orderTime;
+    
+    private int status;
+    
+    @Enumerated(EnumType.STRING)
+	private PaymentMethod paymentMethod;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
+    
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "screening_id")
     private Screening screening;
@@ -41,6 +63,7 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+<<<<<<< HEAD
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
@@ -119,4 +142,8 @@ public class Ticket {
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
+=======
+    
+    
+>>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 }
