@@ -1,14 +1,10 @@
 package vnpt.movie_booking_be.repository;
 
-<<<<<<< HEAD
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import vnpt.movie_booking_be.dto.request.TicketRequest;
-=======
-import org.springframework.data.jpa.repository.JpaRepository;
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 import vnpt.movie_booking_be.models.Auditorium;
 import vnpt.movie_booking_be.models.Seat;
 
@@ -16,7 +12,6 @@ import java.util.List;
 
 public interface SeatRepository extends JpaRepository<Seat,Integer> {
     List<Seat> findSeatsByAuditorium(Auditorium auditorium);
-<<<<<<< HEAD
 
     @Query("SELECT s.number_Seat FROM Seat s WHERE s.id = ?1")
     Integer findNumberSeatById(int seatId);
@@ -47,6 +42,4 @@ public interface SeatRepository extends JpaRepository<Seat,Integer> {
 //            " WHERE t.id = :ticketId AND t.user.id = :userId")
 //    TicketRequest findTicketDetailsByTicketIdAndUserId(int ticketId, int userId);
 
-=======
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 }

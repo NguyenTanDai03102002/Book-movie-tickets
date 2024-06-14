@@ -36,11 +36,7 @@ public class MovieServiceImpl implements MovieService{
         List<Movie> movies = movieRepository.findAll();
         LocalDate today = LocalDate.now();
         return movies.stream()
-<<<<<<< HEAD
              //   .filter(movie -> movie.getRelease_date().isBefore(today) && movie.getEnd_date().isAfter(today))
-=======
-                .filter(movie -> movie.getRelease_date().isBefore(today) && movie.getEnd_date().isAfter(today))
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
                 .map(movie -> movieMapper.movieToMovieResponse(movie))
                 .collect(Collectors.toList());
     }
@@ -169,8 +165,5 @@ public class MovieServiceImpl implements MovieService{
             throw new RuntimeException("Movie not found with id: " + id);
         }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 }

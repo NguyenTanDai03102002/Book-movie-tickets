@@ -20,8 +20,6 @@ public class MovieBookingBeApplication {
         SpringApplication.run(MovieBookingBeApplication.class, args);
     }
 
-<<<<<<< HEAD
-=======
 //    @Bean
 //        CommandLineRunner run(RoleRepository roleRepository, MembershipRepository membershipRepository,
 //                              GenreRepository genreRepository, MovieRepository movieRepository, UserRepository userRepository){
@@ -124,5 +122,4 @@ public class MovieBookingBeApplication {
 ////            movieRepository.save(movie1);
 //        };
 //    }
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 }

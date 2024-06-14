@@ -1,18 +1,12 @@
 package vnpt.movie_booking_be.dto.response;
 
-<<<<<<< HEAD
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-=======
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import vnpt.movie_booking_be.models.PaymentMethod;
 
-<<<<<<< HEAD
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -39,24 +33,3 @@ public class TicketResponse {
 }
 
 
-=======
-import java.util.Date;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class TicketResponse {
-     int id;
-
-     int total;
-
-     Date orderTime;
-
-     int status;
-
-    @Enumerated(EnumType.STRING)
-     PaymentMethod paymentMethod;
-}
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79

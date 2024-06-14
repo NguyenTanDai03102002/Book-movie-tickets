@@ -19,8 +19,5 @@ public class SeatController {
     public List<SeatResponse> getSeatsById(@PathVariable int cinemaId) {
         return seatService.getSeatsById(cinemaId);
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 5b16deb64ee75b07ddf34a11fcbd5bef5619ff79
 }
