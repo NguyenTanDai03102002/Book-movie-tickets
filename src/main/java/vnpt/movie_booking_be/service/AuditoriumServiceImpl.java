@@ -12,6 +12,7 @@ import vnpt.movie_booking_be.repository.AuditoriumRepository;
 import vnpt.movie_booking_be.repository.CinemaRepository;
 import vnpt.movie_booking_be.repository.SeatRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,16 +34,28 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     @Override
     public List<AuditoriumResponse> getAll() {
         List<Auditorium> auditoriumList = auditoriumRepository.findAll();
-        return auditoriumList.stream().map(auditorium -> auditoriumMapper.toAuditoriumResponse(auditorium))
-                .collect(Collectors.toList());
+        List<AuditoriumResponse> auditoriumResponseList = new ArrayList<>();
+        for (Auditorium auditorium : auditoriumList) {
+            AuditoriumResponse auditoriumResponse = auditoriumMapper.toAuditoriumResponse(auditorium);
+            auditoriumResponse.setNumberSeat(auditorium.getSeats().size());
+            auditoriumResponseList.add(auditoriumResponse);
+
+        }
+        return auditoriumResponseList;
     }
 
     @Override
     public List<AuditoriumResponse> getAuditoriumByCinema(int cinemaId) {
         Cinema cinema = cinemaRepository.findById(cinemaId).orElseThrow(() -> new RuntimeException("cinema not found"));
         List<Auditorium> auditoriumList = auditoriumRepository.findAuditoriumsByCinema(cinema);
-        return auditoriumList.stream().map(auditorium -> auditoriumMapper.toAuditoriumResponse(auditorium))
-                .collect(Collectors.toList());
+        List<AuditoriumResponse> auditoriumResponseList = new ArrayList<>();
+        for (Auditorium auditorium : auditoriumList) {
+            AuditoriumResponse auditoriumResponse = auditoriumMapper.toAuditoriumResponse(auditorium);
+            auditoriumResponse.setNumberSeat(auditorium.getSeats().size());
+            auditoriumResponseList.add(auditoriumResponse);
+
+        }
+        return auditoriumResponseList;
     }
 
     @Override

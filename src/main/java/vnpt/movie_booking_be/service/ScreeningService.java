@@ -15,4 +15,6 @@ public interface ScreeningService {
     void updateScreening(int screeningId, ScreeningCreationRequest request);
 
     void deleteScreening(int screeningId);
+
+    List<ScreeningResponse> getAll();
 }

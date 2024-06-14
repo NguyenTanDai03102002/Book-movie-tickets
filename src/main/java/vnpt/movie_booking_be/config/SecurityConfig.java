@@ -50,7 +50,7 @@ public class SecurityConfig {
                                 "/cinema/get/**",
                                 "/factor/getAllFactorByCinema/**",
                                 "/auditorium/get/**",
-                                "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema",
+                                "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema","/screening/getAll",
                                 "/userLogin","/user/createUser",
                                 "/user/verify/**","/movie/getAll",
                                 "/review/get/**","/forget/verifyMail","/forget/verifyOtp","/forget/changePassword").permitAll()

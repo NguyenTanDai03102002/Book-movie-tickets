@@ -74,4 +74,11 @@ public class ScreeningServiceImpl implements ScreeningService{
         screeningRepository.delete(screening);
     }
 
+    @Override
+    public List<ScreeningResponse> getAll() {
+        List<Screening> screeningList = screeningRepository.findAll();
+        return screeningList.stream().map(screening -> screeningMapper.toScreeningResponse(screening))
+                .collect(Collectors.toList());
+    }
+
 }

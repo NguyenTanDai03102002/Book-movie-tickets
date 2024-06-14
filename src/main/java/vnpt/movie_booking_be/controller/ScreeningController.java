@@ -17,6 +17,11 @@ public class ScreeningController {
     @Autowired
     private ScreeningService screeningService;
 
+    @GetMapping("/getAll")
+    public List<ScreeningResponse> getAll() {
+        return screeningService.getAll();
+    }
+
     @GetMapping("/getScreeningByCinema")
     public List<ScreeningResponse> getScreeningByCinema(@RequestParam int cinemaId) {
         return screeningService.getScreeningByCinema(cinemaId);
