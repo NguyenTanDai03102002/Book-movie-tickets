@@ -17,4 +17,6 @@ public interface ScreeningService {
     void deleteScreening(int screeningId);
 
     List<ScreeningResponse> getAll();
+
+    List<ScreeningResponse> getScreeningByAuditorium(int auditoriumId);
 }

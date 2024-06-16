@@ -442,16 +442,16 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         screeningRepository.save(Screening.builder()
-                .date(LocalDate.of(2024, 6, 5))
+                .date(LocalDate.of(2024, 6, 20))
                 .start(LocalTime.of(10, 30))
                 .auditorium(auditorium1)
                 .movie(movie1)
                 .build());
 
         screeningRepository.save(Screening.builder()
-                .date(LocalDate.of(2024, 6, 6))
-                .start(LocalTime.of(10, 30))
-                .auditorium(auditorium3)
+                .date(LocalDate.of(2024, 6, 21))
+                .start(LocalTime.of(14, 30))
+                .auditorium(auditorium1)
                 .movie(movie2)
                 .build());
 

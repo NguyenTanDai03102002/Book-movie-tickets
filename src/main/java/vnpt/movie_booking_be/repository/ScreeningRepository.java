@@ -2,6 +2,7 @@ package vnpt.movie_booking_be.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import vnpt.movie_booking_be.models.Auditorium;
 import vnpt.movie_booking_be.models.Screening;
 
 import java.time.LocalDate;
@@ -26,4 +27,6 @@ public interface ScreeningRepository extends JpaRepository<Screening,Integer> {
     @Query(value = "SELECT s.start FROM Screening s WHERE s.id = ?1")
     LocalTime findStartTimeById(int screeningId);
 
+
+    List<Screening> findScreeningByAuditorium(Auditorium auditorium);
 }

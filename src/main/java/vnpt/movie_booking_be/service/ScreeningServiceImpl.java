@@ -81,4 +81,12 @@ public class ScreeningServiceImpl implements ScreeningService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ScreeningResponse> getScreeningByAuditorium(int auditoriumId) {
+        Auditorium auditorium = auditoriumRepository.findById(auditoriumId).orElseThrow(()->new RuntimeException("Auditorium not found"));
+        List<Screening> screeningList = screeningRepository.findScreeningByAuditorium(auditorium);
+        return screeningList.stream().map(screening -> screeningMapper.toScreeningResponse(screening))
+                .collect(Collectors.toList());
+    }
+
 }

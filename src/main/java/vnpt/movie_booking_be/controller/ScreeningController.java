@@ -22,10 +22,17 @@ public class ScreeningController {
         return screeningService.getAll();
     }
 
+    @GetMapping("/getScreeningByAuditorium")
+    public List<ScreeningResponse> getScreeningByAuditorium(@RequestParam int auditoriumId) {
+        return screeningService.getScreeningByAuditorium(auditoriumId);
+    }
+
     @GetMapping("/getScreeningByCinema")
     public List<ScreeningResponse> getScreeningByCinema(@RequestParam int cinemaId) {
         return screeningService.getScreeningByCinema(cinemaId);
     }
+
+
 
     @GetMapping("/getScreeningByCityAndMovie")
     public List<ScreeningResponse> getScreeningByCityAndMovie(@RequestParam String city,@RequestParam int movieId){
