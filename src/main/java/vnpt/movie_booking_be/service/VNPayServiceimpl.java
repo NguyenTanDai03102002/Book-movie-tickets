@@ -4,7 +4,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vnpt.movie_booking_be.config.VNPayConfig;
+import vnpt.movie_booking_be.dto.response.SeatTicketResponse;
 import vnpt.movie_booking_be.dto.response.TicketResponse;
+import vnpt.movie_booking_be.mapper.TicketMapper;
 import vnpt.movie_booking_be.models.*;
 import vnpt.movie_booking_be.repository.*;
 
@@ -15,14 +17,30 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class VNPayServiceimpl  {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
+    private SeatRepository seatRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
+    private ScreeningRepository screeningRepository;
+    @Autowired
+    private AuditoriumRepository auditoriumRepository;
     public String createOrder(int total, String orderInfor, String urlReturn){
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-       String vnp_IpAddr = "127.0.0.1";
+        String vnp_IpAddr = "127.0.0.1";
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
         String orderType = "order-type";
 
@@ -121,35 +139,22 @@ public class VNPayServiceimpl  {
             return -1;
         }
     }
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TicketRepository ticketRepository;
 
-    @Autowired
-    private SeatRepository seatRepository;
 
-    @Autowired
-    private MovieRepository movieRepository;
-
-    @Autowired
-    private ScreeningRepository screeningRepository;
-    @Autowired
-    private AuditoriumRepository auditoriumRepository;
-
-//    @Autowired
+    //    @Autowired
 //    private UserRepository userRepository;
     public Ticket createTicket(int total, List<Integer> seatIds, int screeningId, int userId, int movieId) {
         Ticket ticket = new Ticket();
         ticket.setTotal(total);
         ticket.setOrderTime(new Date());
         ticket.setStatus(0);
+        ticket.setPaymentMethod(PaymentMethod.VNPAY);
 
         // Retrieve movie, screening, and user from their respective repositories
         Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found"));
         Screening screening = screeningRepository.findById(screeningId).orElseThrow(() -> new RuntimeException("Screening not found"));
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-PaymentMethod p = PaymentMethod.VNPAY;
+
         ticket.setMovie(movie);
         ticket.setScreening(screening);
         ticket.setUser(user);
@@ -157,20 +162,28 @@ PaymentMethod p = PaymentMethod.VNPAY;
         Set<Seat> seats = new HashSet<>();
         for (Integer seatId : seatIds) {
             Seat seat = seatRepository.findById(seatId).orElseThrow(() -> new RuntimeException("Seat not found"));
-            seat.setTicket(ticket);  // Associate seat with ticket
             seats.add(seat);
         }
         ticket.setSeats(seats);
 
         ticket = ticketRepository.save(ticket);
-return ticket;
+        seatRepository.saveAll(seats); // Save seats after associating them with the ticket
+
+        return ticket;
     }
 
-    public String getMovieTitleById(int movieId) {
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
-        return movie.getTitle();
+    @Autowired
+    private TicketMapper ticketMapper;
 
+    public List<TicketResponse> getTicketsByUserId(int userId) {
+        return ticketRepository.findByUserId(userId)
+                .stream()
+                .map(ticket -> {
+                    TicketResponse response = ticketMapper.toTicketResponse(ticket);
+                    response.setSeats(ticketMapper.mapSeats(ticket.getSeats()));
+                    return response;
+                })
+                .collect(Collectors.toList());
     }
     public void deleteTicketById(int ticketId) {
         // Kiểm tra xem vé có tồn tại không trước khi xóa
@@ -181,55 +194,7 @@ return ticket;
         // Xóa vé từ repository
         ticketRepository.deleteById(ticketId);
     }
-    public LocalDate getDateById(int screeningId) {
-        return screeningRepository.findDateById(screeningId);
-    }
 
-    public LocalTime getStartTimeById(int screeningId) {
-        return screeningRepository.findStartTimeById(screeningId);
-    }
-
-    public String username(int id)
-    {
-        return userRepository.findusernameById(id);
-    }
-    public String nameseat(int id)
-    {
-        String a = seatRepository.findRowSeatById(id);
-        String b = seatRepository.findNumberSeatById(id).toString();
-        return a+b;
-    }
-    public String audi(int id)
-    {
-        return auditoriumRepository.findAuditoriumIdById(id);
-    }
-    public Integer getTotalByTicketId(int ticketId) {
-        return ticketRepository.findTotalByTicketId(ticketId);
-    }
-
-    public Date getOrderTimeByTicketId(int ticketId) {
-        return ticketRepository.findOrderTimeByTicketId(ticketId);
-    }
-
-    public Integer getStatusByTicketId(int ticketId) {
-        return ticketRepository.findStatusByTicketId(ticketId);
-    }
-
-    public Integer getUserIdByTicketId(int ticketId) {
-        return ticketRepository.findUserIdByTicketId(ticketId);
-    }
-
-    public Integer getMovieIdByTicketId(int ticketId) {
-        return ticketRepository.findMovieIdByTicketId(ticketId);
-    }
-
-    public Integer getScreeningIdByTicketId(int ticketId) {
-        return ticketRepository.findScreeningIdByTicketId(ticketId);
-    }
-    public Integer gettotalbyticketid(int ticketid)
-    {
-        return ticketRepository.findTotalByTicketId(ticketid);
-    }
     @Transactional
     public void updateQRCodeByTicketId(int ticketId, String qrCodeUrl) {
         Ticket ticket = ticketRepository.findById(ticketId)
@@ -239,18 +204,13 @@ return ticket;
 
         ticketRepository.save(ticket);
     }
-    public Integer findAuditoriumIdBySeatId(int seatId) {
-        return seatRepository.findAuditoriumIdById(seatId);
-    }
-    public Integer updateseatstatus(int seatid)
-    {
-        return seatRepository.updateSeatStatusByTicketId(seatid);
+
+
+    public TicketResponse getTicketById(int ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+
+        return ticketMapper.toTicketResponse(ticket);
     }
 
-    public List<Ticket> findTicketsByUserId(int userId) {
-        return ticketRepository.findByUserId(userId);
-    }
-    public List<TicketResponse> getUserTickets(int userId) {
-        return ticketRepository.findUserTickets(userId);
-    }
 }

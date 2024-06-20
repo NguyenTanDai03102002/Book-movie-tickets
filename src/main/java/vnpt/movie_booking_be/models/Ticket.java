@@ -6,32 +6,32 @@ import lombok.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@EqualsAndHashCode(exclude = {"seat","screening","user"})
-//@ToString(exclude = {"seat","screening","user"})
-@EqualsAndHashCode(exclude = {"seat","screening","user", "movies"})
-@ToString(exclude = {"seat","screening","user", "movies"})
+@EqualsAndHashCode(exclude = {"seats", "screening", "user", "movie"})
+@ToString(exclude = {"seats", "screening", "user", "movie"})
 @Entity
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    private int total;
-    
-    private Date orderTime;  // tụư getdatetime now
-    
-    private int status;  // mới thnah toán xong tự set =0
-    private String qrcode;
-    @Enumerated(EnumType.STRING)
-	private PaymentMethod paymentMethod;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private int total;
+    private Date orderTime;
+    private int status;
+    private String qrcode;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
+    @ManyToMany
+    @JoinTable(
+            name = "ticket_seat",
+            joinColumns = @JoinColumn(name = "ticket_id"),
+            inverseJoinColumns = @JoinColumn(name = "seat_id")
+    )
     private Set<Seat> seats = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,13 +45,9 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
-
-
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }

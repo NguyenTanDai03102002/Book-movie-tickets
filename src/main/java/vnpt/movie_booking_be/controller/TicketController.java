@@ -24,18 +24,18 @@ import java.util.List;
 public class TicketController {
 
     private TicketService ticketService;
-    private VNPayServiceimpl vnPayService;
     @Autowired
-            private SeatRepository seatRepository;
+    private VNPayServiceimpl vnPayService;
 
-@GetMapping("/getticketbyusser")
-public ResponseEntity<List<TicketResponse>> getUserTickets(@RequestParam("userid") int userId) {
-    List<TicketResponse> ticketResponses = vnPayService.getUserTickets(userId);
-    if (ticketResponses.isEmpty()) {
-        return ResponseEntity.notFound().build();
+
+    @Autowired
+    private VNPayServiceimpl vnpayservice;
+
+    @GetMapping("/TicketbyUserID/{userId}")
+    public ResponseEntity<List<TicketResponse>> getTicketsByUserId(@PathVariable int userId) {
+        List<TicketResponse> tickets = vnpayservice.getTicketsByUserId(userId);
+        return ResponseEntity.ok(tickets);
     }
-    return ResponseEntity.ok(ticketResponses);
-}
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getTotalByYear")
     public List<TicketResponse> getTicketByYear(@RequestParam int year) {
