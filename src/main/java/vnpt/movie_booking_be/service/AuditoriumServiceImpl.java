@@ -8,6 +8,7 @@ import vnpt.movie_booking_be.mapper.AuditoriumMapper;
 import vnpt.movie_booking_be.models.Auditorium;
 import vnpt.movie_booking_be.models.Cinema;
 import vnpt.movie_booking_be.models.Seat;
+import vnpt.movie_booking_be.models.SeatType;
 import vnpt.movie_booking_be.repository.AuditoriumRepository;
 import vnpt.movie_booking_be.repository.CinemaRepository;
 import vnpt.movie_booking_be.repository.SeatRepository;
@@ -75,12 +76,16 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
         for (int i = 1; i <= totalSeats; i++) {
             float price;
+            SeatType type;
             if (i <= request.getNormal()) {
                 price = request.getNormalPrice();
+                type = SeatType.normal;
             } else if (i <= request.getNormal() + request.getVip()) {
                 price = request.getVipPrice();
+                type =SeatType.vip;
             } else {
                 price = request.getSweetBoxPrice();
+                type =SeatType.sweetBox;
             }
 
             seatRepository.save(Seat.builder()
@@ -88,6 +93,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
                     .row_Seat(Character.toString(currentRow))
                     .price(price)
                     .auditorium(auditorium)
+                    .seatType(type)
                     .build());
 
             if (i % seatsPerRow == 0) {

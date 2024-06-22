@@ -53,7 +53,8 @@ public class SecurityConfig {
                                 "/screening/getScreeningByCityAndMovie","/screening/getScreeningByCinema","/screening/getAll","/screening/getScreeningByAuditorium",
                                 "/userLogin","/user/createUser",
                                 "/user/verify/**","/movie/getAll",
-                                "/review/get/**","/forget/verifyMail","/forget/verifyOtp","/forget/changePassword").permitAll()
+                                "/review/get/**","/forget/verifyMail","/forget/verifyOtp","/forget/changePassword",
+                                "/new/getAll").permitAll()
                                 .anyRequest().authenticated()
                 )
 //                .authorizeRequests(authorize ->

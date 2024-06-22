@@ -2,19 +2,18 @@ package vnpt.movie_booking_be.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import vnpt.movie_booking_be.models.SeatType;
+
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SeatResponse {
+public class NewResponse {
      int id;
-     int number_Seat;
-     String row_Seat;
-     float price;
-     AuditoriumResponse auditorium;
-int seatstatus;
-     SeatType seatType;
+     String title;
+     String content;
+     String imageUrl;
+     Date created;
 }

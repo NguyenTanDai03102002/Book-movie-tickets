@@ -23,6 +23,9 @@ public class Seat{
     private float price;
 private int status;
 
+    @Enumerated(EnumType.STRING)
+    private SeatType seatType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
