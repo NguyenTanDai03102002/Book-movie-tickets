@@ -28,6 +28,9 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public List<CinemaResponse> getAllCinema() {
         List<Cinema> cinemaList = cinemaRepository.findAll();
+        for(Cinema cinema : cinemaList){
+            System.out.println(cinema.getAuditoriums());
+        }
         return cinemaList.stream().map(cinema -> cinemaMapper.toCinemaResponse(cinema))
                 .collect(Collectors.toList());
     }

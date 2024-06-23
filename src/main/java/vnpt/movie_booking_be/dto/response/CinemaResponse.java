@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import vnpt.movie_booking_be.models.Address;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -15,4 +16,5 @@ public class CinemaResponse {
      int id;
      String name;
      AddressResponse address;
+     List<AuditoriumResponse> auditoriumResponse;
 }
