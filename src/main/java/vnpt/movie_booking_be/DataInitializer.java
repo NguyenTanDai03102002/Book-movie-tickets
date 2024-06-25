@@ -40,7 +40,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private SeatRepository seatRepository;
-
+@Autowired
+private VourcherRepository voucherRepository;
     @Autowired
     private ScreeningRepository screeningRepository;
 
@@ -126,6 +127,7 @@ public class DataInitializer implements CommandLineRunner {
                 .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717242492/jgjfnbhjt2hjake9hgm0.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
+                        .isActive(true)
                 .build());
 
         Set<String> casts2 = new HashSet<>();
@@ -157,7 +159,19 @@ public class DataInitializer implements CommandLineRunner {
                 .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717243224/cmqkux5zxbxrmrio6bnu.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
+                        .isActive(true)
                 .build());
+
+        // Insert data for vourcher
+        Date startDateTime = new GregorianCalendar(2024, Calendar.JUNE, 24).getTime();
+        Date endDateTime = new GregorianCalendar(2024, Calendar.JULY, 24).getTime();
+        double[] discounts = {0.05, 0.1, 0.2, 0.15, 0.25};
+
+        for (double discount : discounts) {
+          //  Vourcher vourcher = new Vourcher(
+            Vourcher vourcher = new Vourcher(startDateTime, endDateTime, 50, discount, "mã giảm giá");
+            voucherRepository.save(vourcher);
+        }
 
         //CINEMA
         Cinema cinema1 = cinemaRepository.save(Cinema.builder()
@@ -173,22 +187,22 @@ public class DataInitializer implements CommandLineRunner {
 
         Auditorium auditorium1 = Auditorium.builder().name("Phòng 1").cinema(cinema1).build();
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium1).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium1).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium1).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium1).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium1).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium1).build());
         }
 
         Auditorium auditorium2 = Auditorium.builder().name("Phòng 2").cinema(cinema1).build();
 
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium2).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium2).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium2).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium2).build());
         }
         auditoriumRepository.save(auditorium1);
         auditoriumRepository.save(auditorium2);
@@ -209,21 +223,21 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium3 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema2).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium3).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium3).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium3).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium3).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium3).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium3).build());
         }
         Auditorium auditorium4 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema2).build());
 
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium4).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium4).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium4).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium4).build());
         }
         Cinema cinema3 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Hai Bà Trưng")
@@ -236,20 +250,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium5 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema3).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium5).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium5).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium5).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium5).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium5).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium5).build());
         }
         Auditorium auditorium6 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema3).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium6).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium6).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium6).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium6).build());
         }
         Cinema cinema4 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Trần Hưng Đạo")
@@ -262,20 +276,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium7 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema4).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium7).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium7).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium7).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium7).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium7).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium7).build());
         }
         Auditorium auditorium8 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema4).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium8).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium8).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium8).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium8).build());
         }
         Cinema cinema5 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Cách Mạng Tháng 8")
@@ -288,20 +302,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium9 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema5).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium9).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium9).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium9).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium9).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium9).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium9).build());
         }
         Auditorium auditorium10 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema5).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium10).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium10).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium10).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium10).build());
         }
         Cinema cinema6 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Lê Lợi Cần Thơ")
@@ -314,20 +328,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium11 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema6).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium11).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium11).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium11).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium11).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium11).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium11).build());
         }
         Auditorium auditorium12 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema6).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium12).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium12).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium12).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium12).build());
         }
         Cinema cinema7 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Lê Duẩn")
@@ -340,20 +354,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium13 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema7).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium13).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium13).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium13).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium13).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium13).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium13).build());
         }
         Auditorium auditorium14 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema7).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium14).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium14).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium14).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium14).build());
         }
         Cinema cinema8 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Nguyễn Văn Linh")
@@ -366,20 +380,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium15 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema8).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium15).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium15).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium15).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium15).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium15).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium15).build());
         }
         Auditorium auditorium16 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema8).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium16).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium16).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium16).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium16).build());
         }
         Cinema cinema9 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Trần Phú")
@@ -392,20 +406,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium17 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema9).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium17).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium17).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium17).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium17).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium17).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium17).build());
         }
         Auditorium auditorium18 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema9).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium18).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium18).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium18).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium18).build());
         }
         Cinema cinema10 = cinemaRepository.save(Cinema.builder()
                 .name("CGV Điện Biên Phủ")
@@ -418,20 +432,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build());
         Auditorium auditorium19 = auditoriumRepository.save(Auditorium.builder().name("Phòng 1").cinema(cinema10).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium19).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium19).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium19).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium19).build());
         }
         for(int i = 21 ;i<=30;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").auditorium(auditorium19).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 43.500).row_Seat("C").seatType(SeatType.sweetBox).auditorium(auditorium19).build());
         }
         Auditorium auditorium20 = auditoriumRepository.save(Auditorium.builder().name("Phòng 2").cinema(cinema10).build());
         for(int i =1 ;i<=10;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").auditorium(auditorium20).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 45.500).row_Seat("A").seatType(SeatType.normal).auditorium(auditorium20).build());
         }
         for(int i = 11 ;i<=20;i++){
-            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").auditorium(auditorium20).build());
+            seatRepository.save(Seat.builder().number_Seat(i).price((float) 44.500).row_Seat("B").seatType(SeatType.vip).auditorium(auditorium20).build());
         }
         //Factor
         List<Cinema> cinemas = Arrays.asList(cinema1, cinema2, cinema3, cinema4, cinema5, cinema6, cinema7, cinema8, cinema9, cinema10);

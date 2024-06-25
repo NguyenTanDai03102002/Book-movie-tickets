@@ -31,42 +31,13 @@ public class VNpayController {
     public String home() {
         return "index";
     }
-//    @PostMapping("/submitOrder")
-//    public String submitOrder(@RequestParam("amount") int orderTotal,  // don gia
-//                              @RequestParam("seatIds") List<Integer> seatIds,  // lay ra tenghe
-//                              @RequestParam("screeningId") int screeningId,  // -> phongid, name id
-//                              @RequestParam("userId") int userId,  // user name
-//                              @RequestParam("movieId") int movieId,  // movie name
-//                              HttpServletRequest request) {
-//        // Xử lý các seatIds để tạo chuỗi seat_ID
-//        StringBuilder seatIDBuilder = new StringBuilder();
-//        for (Integer seatId : seatIds) {
-//            seatIDBuilder.append(seatId).append(",");
-//        }
-//        String seat_ID ="";
-//        if (seatIDBuilder.length() > 0) {
-//            seatIDBuilder.setLength(seatIDBuilder.length() - 1);
-//            seat_ID = seatIDBuilder.toString();
-//        }
-//
-//
-//        // Tạo orderInfo từ các tham số đầu vào
-//        String orderInfo = movieId + "/" + screeningId + "/" + userId + "/" + orderTotal + "/" + seat_ID;
-//
-//        // Xác định baseUrl
-//        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-//        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
-//
-//        // Chuyển hướng người dùng đến vnpayUrl
-//        return "redirect:" + vnpayUrl;
-//    }
     @PostMapping("/submitOrder")
-    public ResponseEntity<Urlrespone> submitOrder(@RequestParam("amount") int orderTotal,  // don gia
-                                                  @RequestParam("seatIds") List<Integer> seatIds,  // lay ra tenghe
-                                                  @RequestParam("screeningId") int screeningId,  // -> phongid, name id
-                                                  @RequestParam("userId") int userId,  // user name
-                                                  @RequestParam("movieId") int movieId,  // movie name
-                                                  HttpServletRequest request) {
+    public String submitOrder(@RequestParam("amount") int orderTotal,  // don gia
+                              @RequestParam("seatIds") List<Integer> seatIds,  // lay ra tenghe
+                              @RequestParam("screeningId") int screeningId,  // -> phongid, name id
+                              @RequestParam("userId") int userId,  // user name
+                              @RequestParam("movieId") int movieId,  // movie name
+                              HttpServletRequest request) {
         // Xử lý các seatIds để tạo chuỗi seat_ID
         StringBuilder seatIDBuilder = new StringBuilder();
         for (Integer seatId : seatIds) {
@@ -85,27 +56,54 @@ public class VNpayController {
         // Xác định baseUrl
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
-        Urlrespone response = new Urlrespone(vnpayUrl);
 
         // Chuyển hướng người dùng đến vnpayUrl
-        return ResponseEntity.ok(response);
-
-        // Chuyển hướng người dùng đến vnpayUrl
-       // return "redirect:" + vnpayUrl;
+        return "redirect:" + vnpayUrl;
     }
+//    @PostMapping("/submitOrder")
+//    public ResponseEntity<Urlrespone> submitOrder(@RequestParam("amount") int orderTotal,  // don gia
+//                                                  @RequestParam("seatIds") List<Integer> seatIds,  // lay ra tenghe
+//                                                  @RequestParam("screeningId") int screeningId,  // -> phongid, name id
+//                                                  @RequestParam("userId") int userId,  // user name
+//                                                  @RequestParam("movieId") int movieId,  // movie name
+//                                                  HttpServletRequest request) {
+//        // Xử lý các seatIds để tạo chuỗi seat_ID
+//        StringBuilder seatIDBuilder = new StringBuilder();
+//        for (Integer seatId : seatIds) {
+//            seatIDBuilder.append(seatId).append(",");
+//        }
+//        String seat_ID ="";
+//        if (seatIDBuilder.length() > 0) {
+//            seatIDBuilder.setLength(seatIDBuilder.length() - 1);
+//            seat_ID = seatIDBuilder.toString();
+//        }
+//
+//
+//        // Tạo orderInfo từ các tham số đầu vào
+//        String orderInfo = movieId + "/" + screeningId + "/" + userId + "/" + orderTotal + "/" + seat_ID;
+//
+//        // Xác định baseUrl
+//        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+//        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
+//        Urlrespone response = new Urlrespone(vnpayUrl);
+//
+//        // Chuyển hướng người dùng đến vnpayUrl
+//        return ResponseEntity.ok(response);
+//
+//        // Chuyển hướng người dùng đến vnpayUrl
+//       // return "redirect:" + vnpayUrl;
+//    }
     @GetMapping("/vnpay-payment")
     public String handlePayment(HttpServletRequest request, Model model) throws IOException, WriterException {
         int paymentStatus = vnPayService.orderReturn(request);
-        HttpSession session = request.getSession();
-
-//        if (paymentStatus != 1) {
-//            vnPayService.deleteTicketById((Integer) session.getAttribute("idticket"));
-//        }
-        // Lấy các thông tin từ request
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
+if(paymentStatus == 1) {
+
+        // Lấy các thông tin từ request
+
 
         // Chuyển đổi giá trị totalPrice
         if (totalPrice != null && totalPrice.length() > 2) {
@@ -163,10 +161,7 @@ public class VNpayController {
         int total = ticketResponse.getTotal();
         String qrcode = ticketResponse.getQrcode();
         // Thêm các thông tin vào model để hiển thị trong view
-        model.addAttribute("userName", userName);
-        model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("paymentTime", paymentTime);
-        model.addAttribute("transactionId", transactionId);
+    model.addAttribute("userName", userName);
         model.addAttribute("giochiu", time);
         model.addAttribute("ghe", ghe);
         model.addAttribute("phong", audi);
@@ -174,7 +169,11 @@ public class VNpayController {
         model.addAttribute("ngaychiu", date);
         model.addAttribute("totalPrice", total);
         model.addAttribute("phong", audi);
-        model.addAttribute("qrcode", qrcode);
+        model.addAttribute("qrcode", qrcode);}
+
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("paymentTime", paymentTime);
+        model.addAttribute("transactionId", transactionId);
         return paymentStatus == 1 ? "ordersuccess" : "orderfail";
 
     }

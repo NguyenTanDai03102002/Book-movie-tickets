@@ -41,7 +41,9 @@ public class SecurityConfig {
          "/",
 //
                                         "/getticketbyusser",
-
+"/TicketbyUserID/**",
+"/tickets/GetAll",
+                                "/getAll",
                                 "/submitOrder",
                                 "/vnpay-payment",
                                 "/vnpay-payment-app",

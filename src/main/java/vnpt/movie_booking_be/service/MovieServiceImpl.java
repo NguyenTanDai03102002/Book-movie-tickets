@@ -36,10 +36,12 @@ public class MovieServiceImpl implements MovieService{
         List<Movie> movies = movieRepository.findAll();
         LocalDate today = LocalDate.now();
         return movies.stream()
-             //   .filter(movie -> movie.getRelease_date().isBefore(today) && movie.getEnd_date().isAfter(today))
+                .filter(movie -> movie.isActive()) // Chỉ lấy các bộ phim có isActive = true
+                // .filter(movie -> movie.getRelease_date().isBefore(today) && movie.getEnd_date().isAfter(today)) // Nếu bạn muốn áp dụng thêm điều kiện này
                 .map(movie -> movieMapper.movieToMovieResponse(movie))
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public void createMovie(String title, Set<Integer> genreIds, String description,
@@ -50,6 +52,7 @@ public class MovieServiceImpl implements MovieService{
         String imageUrl = (String) uploadImg.get("url");
         Map<String, Object> uploadVideo = uploadVideo(video);
         String videoUrl = (String) uploadVideo.get("url");
+//boolean h = true;
 
         int durationInt = Integer.parseInt(duration);
         LocalDate releaseDateLocal = LocalDate.parse(releaseDate);
@@ -78,6 +81,7 @@ public class MovieServiceImpl implements MovieService{
         movie.setRelease_date(releaseDateLocal);
         movie.setEnd_date(endDateLocal);
         movie.setGenres(genres);
+        movie.setActive(true);
 
         movieRepository.save(movie);
     }
@@ -86,7 +90,7 @@ public class MovieServiceImpl implements MovieService{
     public Movie updateMovie(Integer id, String title, Set<Integer> genreIds, String description,
                              MultipartFile file, MultipartFile video,
                              String director, String casts, String duration, String rating,
-                             String releaseDate, String endDate) {
+                             String releaseDate, String endDate, boolean isActive) {
         MovieResponse mvr = getMovieById(id);
         if(title != null) {
             mvr.setTitle(mvr.getTitle());
@@ -113,7 +117,7 @@ public class MovieServiceImpl implements MovieService{
             movie.setDirector(director);
             movie.setCasts(new HashSet<>(Arrays.asList(casts.split(","))));
             movie.setDuration(Integer.parseInt(duration));
-
+movie.setActive(isActive);
             // movie.setRating(Float.parseFloat(rating));
             movie.setRelease_date(LocalDate.parse(releaseDate));
             movie.setEnd_date(LocalDate.parse(endDate));

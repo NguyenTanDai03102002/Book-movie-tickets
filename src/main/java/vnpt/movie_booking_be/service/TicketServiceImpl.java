@@ -25,4 +25,11 @@ public class TicketServiceImpl implements TicketService{
         return ticketList.stream().map(ticket -> ticketMapper.toTicketResponse(ticket))
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<TicketResponse> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+        return tickets.stream()
+                .map(ticketMapper::toTicketResponse)
+                .collect(Collectors.toList());
+    }
 }

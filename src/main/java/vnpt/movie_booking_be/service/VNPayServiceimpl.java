@@ -178,11 +178,7 @@ public class VNPayServiceimpl  {
     public List<TicketResponse> getTicketsByUserId(int userId) {
         return ticketRepository.findByUserId(userId)
                 .stream()
-                .map(ticket -> {
-                    TicketResponse response = ticketMapper.toTicketResponse(ticket);
-                    response.setSeats(ticketMapper.mapSeats(ticket.getSeats()));
-                    return response;
-                })
+                .map(ticket -> ticketMapper.toTicketResponse(ticket))
                 .collect(Collectors.toList());
     }
     public void deleteTicketById(int ticketId) {

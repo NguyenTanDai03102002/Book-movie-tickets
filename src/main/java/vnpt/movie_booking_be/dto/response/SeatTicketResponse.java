@@ -11,6 +11,6 @@ public class SeatTicketResponse {
     private int id;
     private int numberSeat;
     private String rowSeat;
-    private float price;
+   // private float price;
 
 }

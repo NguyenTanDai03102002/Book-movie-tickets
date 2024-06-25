@@ -29,7 +29,9 @@ public class TicketResponse {
     private int total;
 
     private List<SeatResponse> seats;
-
+private ScreeningResponse screening;
+    private Date orderTime;
+    private int userid;
 }
 
 

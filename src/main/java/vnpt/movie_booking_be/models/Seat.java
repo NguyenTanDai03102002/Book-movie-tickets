@@ -20,7 +20,7 @@ public class Seat {
 
     private int number_Seat;
     private String row_Seat;
-    private float price;
+    private double price;
 
     @ManyToMany(mappedBy = "seats")
     private Set<Ticket> tickets = new HashSet<>();
@@ -28,4 +28,7 @@ public class Seat {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "auditorium_id")
     private Auditorium auditorium;
+
+    @Enumerated(EnumType.STRING)
+    private SeatType seatType;
 }

@@ -17,4 +17,5 @@ public class ScreeningResponse {
      LocalDate date;
      AuditoriumResponse auditorium;
      MovieResponse movie;
+
 }

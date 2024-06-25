@@ -22,15 +22,19 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 public class TicketController {
-
+@Autowired
     private TicketService ticketService;
-    @Autowired
-    private VNPayServiceimpl vnPayService;
+
 
 
     @Autowired
     private VNPayServiceimpl vnpayservice;
-
+  //  @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/tickets/GetAll")
+    public ResponseEntity<List<TicketResponse>> getAllTickets() {
+        List<TicketResponse> tickets = ticketService.getAllTickets();
+        return ResponseEntity.ok(tickets);
+    }
     @GetMapping("/TicketbyUserID/{userId}")
     public ResponseEntity<List<TicketResponse>> getTicketsByUserId(@PathVariable int userId) {
         List<TicketResponse> tickets = vnpayservice.getTicketsByUserId(userId);
