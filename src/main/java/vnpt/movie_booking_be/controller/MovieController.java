@@ -50,10 +50,12 @@ public class MovieController {
                                              @RequestParam MultipartFile file, @RequestParam MultipartFile video,
                                              @RequestParam String director, @RequestParam String casts,
                                              @RequestParam String duration, @RequestParam String rating,
-                                             @RequestParam String releaseDate, @RequestParam String endDate) {
+                                             @RequestParam String releaseDate, @RequestParam String endDate, @RequestParam boolean isActive) {
         Movie updatedMovie = movieService.updateMovie(id, title, genreIds, description, file, video,
                 director, casts, duration, rating,
-                releaseDate, endDate);
+                releaseDate, endDate,isActive);
         return ResponseEntity.ok().body(updatedMovie);
     }
+
+
 }

@@ -31,4 +31,5 @@ public class Auditorium {
     @JoinColumn(name = "cinema_id")
     private Cinema cinema;
 
+
 }

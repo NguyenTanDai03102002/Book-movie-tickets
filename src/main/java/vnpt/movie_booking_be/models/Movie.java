@@ -27,13 +27,14 @@ public class Movie{
     private String image;
     private String trailer;
     private String director;
-    private double number_comment;
+    private int number_comment;
     @ElementCollection
     private Set<String> casts;
     private int duration;
-    private float rating;
+    private double rating;
     private LocalDate release_date;
     private LocalDate end_date;
+
 private boolean isActive;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movies_genres",

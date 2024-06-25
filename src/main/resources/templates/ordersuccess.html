@@ -5,89 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Thanh toán thành công</title>
+    <style>
+        .body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            border-radius: 25px;
+        }
+        .table td {
+            border: none;
+        }
+    </style>
 </head>
-
 <body>
-<!-- back to top -->
-
-<!-- start body -->
 <div class="body py-5">
     <div class="container">
-        <div class="w-50 m-auto">
+        <div class="card w-100 p-4 m-auto">
             <h1 class="my-3 text-success text-center">Thanh toán thành công</h1>
-<!--            <h2 class="my-2">Chi tiết đơn hàng </h2>-->
-<!--            <h3> Thông tin phim</h3>-->
-
-            <table class="table table-bordered">
-                <tbody>
-<!--                <tr>-->
-<!--                    <td>orderInfo:</td>-->
-<!--                    <td><span th:text="${orderInfo}">[orderInfo] </span></td>-->
-<!--                </tr>-->
-                <tr>
-                    <td>userName :</td>
-                    <td><span th:text="${userName}">[user Name]</span></td>
-                </tr>
-                <tr>
-                    <td>Tên phim:</td>
-                    <td><span th:text="${moviename}">[movie name] </span></td>
-                </tr>
-                <tr>
-                    <td>Ngày chiếu :</td>
-                    <td><span th:text="${ngaychiu}">[ngaychiu] </span></td>
-                </tr>
-                <tr>
-                    <td>Giờ chiếu :</td>
-                    <td><span th:text="${giochiu}">[gio chiu] </span></td>
-                </tr>
-<!--                <tr>-->
-<!--                    <td>Tên phim:</td>-->
-<!--                    <td><span th:text="${session.getAttribute('moviename')}">[Tên phim]</span></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>Ngày chiếu:</td>-->
-<!--                    <td><span th:text="${session.getAttribute('screeningDate')}">[Ngày chiếu]</span></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>Giờ chiếu:</td>-->
-<!--                    <td><span th:text="${session.getAttribute('screeningStart')}">[Giờ chiếu]</span></td>-->
-<!--                </tr>-->
-                <tr>
-                    <td>Phòng:</td>
-                    <td><span th:text="${phong}">[phong]</span></td>
-                </tr>
-                <tr>
-                    <td>Ghế:</td>
-                    <td><span th:text="${ghe}">[ghe]</span></td>
-                </tr>
-
-                <tr>
-                    <td>Tổng tiền:</td>
-                    <td><span th:text="${totalPrice}">[total price] </span> VND</td>
-                </tr>
-<!--                <tr>-->
-<!--                    <td>Url:</td>-->
-<!--                    <td><span th:text="${url}">[url] </span> </td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>qrco:</td>-->
-<!--                    <td><span th:text="${qrco}">[qrco] </span> </td>-->
-<!--                </tr>-->
-                <tr>
-                    <td>Thời gian thanh toán:</td>
-                    <td><span th:text="${giomua}">[gio mua]</span></td>
-                </tr>
-<!--                <tr>-->
-<!--                    <td>Thời gian thanh toán:</td>-->
-<!--                    <td><span th:text="${paymentTime}">[payment time]</span></td>-->
-<!--                </tr>-->
-                <tr>
-                    <td>Mã giao dịch:</td>
-                    <td><span th:text="${transactionId}">[transaction ID]</span></td>
-                </tr>
-                </tbody>
-            </table>
-            <a href="/" class="btn btn-primary">Về trang chủ</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Tên người dùng</td>
+                        <td><span th:text="${userName}">[user Name]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tên phim</td>
+                        <td><span th:text="${moviename}">[movie name]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ngày chiếu</td>
+                        <td><span th:text="${ngaychiu}">[ngaychiu]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Giờ chiếu</td>
+                        <td><span th:text="${giochiu}">[gio chiu]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Mã QR code</td>
+                        <td><img th:src="${qrcode}" alt="QR code" style="max-width: 100%; height: auto;"></td>
+                    </tr>
+                    <tr>
+                        <td>Phòng</td>
+                        <td><span th:text="${phong}">[phong]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ghế</td>
+                        <td><span th:text="${ghe}">[ghe]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tổng tiền</td>
+                        <td><span th:text="${totalPrice}">[total price]</span> VND</td>
+                    </tr>
+                    <tr>
+                        <td>Thời gian thanh toán</td>
+                        <td><span th:text="${paymentTime}">[paymentTime]</span></td>
+                    </tr>
+                    <tr>
+                        <td>Mã giao dịch</td>
+                        <td><span th:text="${transactionId}">[transaction ID]</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-primary btn-block">Về trang chủ</a>
+            </div>
         </div>
     </div>
 </div>
@@ -96,5 +84,4 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
-
 </html>

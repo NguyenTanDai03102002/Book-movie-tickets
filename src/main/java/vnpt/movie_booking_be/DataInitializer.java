@@ -40,7 +40,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private SeatRepository seatRepository;
-
+@Autowired
+private VourcherRepository voucherRepository;
     @Autowired
     private ScreeningRepository screeningRepository;
 
@@ -129,6 +130,7 @@ public class DataInitializer implements CommandLineRunner {
                 .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717242492/jgjfnbhjt2hjake9hgm0.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
+                        .isActive(true)
                 .build());
 
         Set<String> casts2 = new HashSet<>();
@@ -160,7 +162,19 @@ public class DataInitializer implements CommandLineRunner {
                 .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717243224/cmqkux5zxbxrmrio6bnu.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
+                        .isActive(true)
                 .build());
+
+        // Insert data for vourcher
+        Date startDateTime = new GregorianCalendar(2024, Calendar.JUNE, 24).getTime();
+        Date endDateTime = new GregorianCalendar(2024, Calendar.JULY, 24).getTime();
+        double[] discounts = {0.05, 0.1, 0.2, 0.15, 0.25};
+
+        for (double discount : discounts) {
+          //  Vourcher vourcher = new Vourcher(
+            Vourcher vourcher = new Vourcher(startDateTime, endDateTime, 50, discount, "mã giảm giá");
+            voucherRepository.save(vourcher);
+        }
 
         //CINEMA
         Cinema cinema1 = cinemaRepository.save(Cinema.builder()
