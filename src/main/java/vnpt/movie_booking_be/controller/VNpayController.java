@@ -32,7 +32,7 @@ public class VNpayController {
         return "index";
     }
     @PostMapping("/submitOrder")
-    public String submitOrder(@RequestParam("amount") int orderTotal,  // don gia
+    public ResponseEntity<String> submitOrder(@RequestParam("amount") int orderTotal,  // don gia
                               @RequestParam("seatIds") List<Integer> seatIds,  // lay ra tenghe
                               @RequestParam("screeningId") int screeningId,  // -> phongid, name id
                               @RequestParam("userId") int userId,  // user name
@@ -58,7 +58,7 @@ public class VNpayController {
         String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
 
         // Chuyển hướng người dùng đến vnpayUrl
-        return "redirect:" + vnpayUrl;
+        return ResponseEntity.ok(vnpayUrl) ;
     }
 //    @PostMapping("/submitOrder")
 //    public ResponseEntity<Urlrespone> submitOrder(@RequestParam("amount") int orderTotal,  // don gia
