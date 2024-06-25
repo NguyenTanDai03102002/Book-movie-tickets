@@ -12,4 +12,8 @@ public interface AuditoriumService {
     List<AuditoriumResponse> getAuditoriumByCinema(int cinemaId);
 
     void createAuditoriumForCinema(int cinemaId, AuditoriumCreationRequest request);
+
+    void deleteAuditoriumForCinema(int auditoriumId);
+
+    void updateAuditoriumForCinema(int auditoriumId, AuditoriumCreationRequest request);
 }

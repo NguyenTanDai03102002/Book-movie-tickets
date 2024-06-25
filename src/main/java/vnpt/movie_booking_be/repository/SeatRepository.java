@@ -26,10 +26,8 @@ public interface SeatRepository extends JpaRepository<Seat,Integer> {
     @Query("SELECT s.id FROM Seat s WHERE s.id = ?1")
     List<Integer> findSeatIdById(int seatId);
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE Seat s SET s.status = 1 WHERE s.ticket.id = ?1")
-    int updateSeatStatusByTicketId(int seatId);
+    List<Seat> findByAuditorium(Auditorium auditorium);
+
 
 //    @Query("SELECT new vnpt.movie_booking_be.dto.request.TicketRequest(" +
 //            "t.total, mov.title, scr.date, scr.start, scr.auditorium.name, CONCAT(seat.row_Seat, seat.number_Seat), usr.name)" +

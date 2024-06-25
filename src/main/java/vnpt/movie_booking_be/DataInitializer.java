@@ -40,7 +40,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private SeatRepository seatRepository;
-
+@Autowired
+private VourcherRepository voucherRepository;
     @Autowired
     private ScreeningRepository screeningRepository;
 
@@ -129,6 +130,7 @@ public class DataInitializer implements CommandLineRunner {
                 .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717242492/jgjfnbhjt2hjake9hgm0.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
+                        .isActive(true)
                 .build());
 
         Set<String> casts2 = new HashSet<>();
@@ -160,7 +162,81 @@ public class DataInitializer implements CommandLineRunner {
                 .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717243224/cmqkux5zxbxrmrio6bnu.mp4")
                 .release_date(LocalDate.of(2024,5,1))
                 .end_date(LocalDate.of(2024,6,30))
+                        .isActive(true)
                 .build());
+
+        Set<String> casts3 = new HashSet<>();
+        casts3.add("Lee Jung Jae");
+        casts3.add("Park Hae Soo");
+        casts3.add("Wi Ha Joon");
+
+        Set<Genre> genreSet3 = new HashSet<>();
+        genreSet3.add(actionGenre);
+        genreSet3.add(adventureGenre);
+        Movie movie3 = movieRepository.save(Movie.builder()
+                .title("TRÒ CHƠI CON MỰC")
+                .description("Squid Game – Trò Chơi Con Mực (tên tiếng Hàn 오징어 게임) " +
+                        "là một series Hàn Quốc trên Netflix được lấy cảm hứng từ một trò " +
+                        "chơi quen thuộc dành cho trẻ em ở Hàn Quốc ngày xưa. Vào những năm 1980," +
+                        " đây là một trong những trò giải trí phổ biến thường được chơi trên khoảng " +
+                        "sân trống với những hình thù được vẽ trên đất. Squid Game – Trò Chơi Con Mực " +
+                        "(tên tiếng Hàn 오징어 게임) là một series Hàn Quốc trên Netflix được lấy cảm hứng " +
+                        "từ một trò chơi quen thuộc dành cho trẻ em ở Hàn Quốc ngày xưa. Vào những năm " +
+                        "1980, đây là một trong những trò giải trí phổ biến thường được chơi trên khoảng " +
+                        "sân trống với những hình thù được vẽ trên đất.")
+                .director("Hwang Dong-hyuk")
+                .casts(casts1)
+                .duration(112)
+                .genres(genreSet1)
+                .rating((float) 4.5)
+                .image("http://res.cloudinary.com/do9bojdku/image/upload/v1717242487/b8up5j8i6j0hrlwayxx2.jpg")
+                .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717242492/jgjfnbhjt2hjake9hgm0.mp4")
+                .release_date(LocalDate.of(2024,10,10))
+                .end_date(LocalDate.of(2024,12,12))
+                .isActive(true)
+                .build());
+
+        Set<String> casts4 = new HashSet<>();
+        casts4.add("Dwayne Johnson");
+        casts4.add("Naomie Harris");
+        casts4.add("Malin Åkerman");
+        casts4.add("Joe Manganiello");
+        casts4.add("Jake Lacy");
+        casts4.add("Marley Shelton");
+        casts4.add("Jeffrey Dean Morgan");
+        Set<Genre> genreSet4 = new HashSet<>();
+        genreSet4.add(khvt);
+        Movie movie4 = movieRepository.save(Movie.builder()
+                .title("SIÊU THÚ CUỒNG NỘ")
+                .description("Bộ phim kể về nhà sinh vật học Davis Okoye có mối liên kết khăng khít " +
+                        "với George - một chú gorilla lưng bạc được anh chăm sóc từ nhỏ. Một thí nghiệm " +
+                        "đột biến ngoài ý muốn đã làm biến đổi gorilla thành quái vật khổng lồ hung hăng" +
+                        ". Gorilla cùng những sinh vật bị biến đổi khác đã tấn công con người và đẩy nhân" +
+                        " loại đứng trước hiểm họa diệt vong. Liệu Davis Okoye sẽ làm gì để giành chiến " +
+                        "thắng, không chỉ để ngăn chặn một thảm họa toàn cầu, mà còn để cứu gorilla đã " +
+                        "từng là bạn tốt của mình?")
+                .director("Brad Peyton")
+                .casts(casts2)
+                .duration(112)
+                .genres(genreSet2)
+                .rating((float) 5.5)
+                .image("http://res.cloudinary.com/do9bojdku/image/upload/v1717243220/l0frpo7yaggxzj1oznob.jpg")
+                .trailer("http://res.cloudinary.com/do9bojdku/video/upload/v1717243224/cmqkux5zxbxrmrio6bnu.mp4")
+                .release_date(LocalDate.of(2024,10,10))
+                .end_date(LocalDate.of(2024,12,12))
+                .isActive(true)
+                .build());
+
+        // Insert data for vourcher
+        Date startDateTime = new GregorianCalendar(2024, Calendar.JUNE, 24).getTime();
+        Date endDateTime = new GregorianCalendar(2024, Calendar.JULY, 24).getTime();
+        double[] discounts = {0.05, 0.1, 0.2, 0.15, 0.25};
+
+        for (double discount : discounts) {
+          //  Vourcher vourcher = new Vourcher(
+            Vourcher vourcher = new Vourcher(startDateTime, endDateTime, 50, discount, "mã giảm giá");
+            voucherRepository.save(vourcher);
+        }
 
         //CINEMA
         Cinema cinema1 = cinemaRepository.save(Cinema.builder()
@@ -445,14 +521,14 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         screeningRepository.save(Screening.builder()
-                .date(LocalDate.of(2024, 6, 20))
+                .date(LocalDate.of(2024, 6, 30))
                 .start(LocalTime.of(10, 30))
                 .auditorium(auditorium1)
                 .movie(movie1)
                 .build());
 
         screeningRepository.save(Screening.builder()
-                .date(LocalDate.of(2024, 6, 21))
+                .date(LocalDate.of(2024, 6, 30))
                 .start(LocalTime.of(14, 30))
                 .auditorium(auditorium1)
                 .movie(movie2)

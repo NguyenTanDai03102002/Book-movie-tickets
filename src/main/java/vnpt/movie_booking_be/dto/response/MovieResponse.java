@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,8 +22,8 @@ public class MovieResponse {
     String director;
     Set<String> casts;
     int duration;
-    float rating;
+    double rating;
     LocalDate release_date;
     LocalDate end_date;
-    Set<GenreResponse> genres;
+    List<GenreResponse> genres;
 }

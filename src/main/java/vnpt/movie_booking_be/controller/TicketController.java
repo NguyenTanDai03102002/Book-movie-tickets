@@ -22,20 +22,24 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 public class TicketController {
-
+@Autowired
     private TicketService ticketService;
-    private VNPayServiceimpl vnPayService;
-    @Autowired
-            private SeatRepository seatRepository;
 
-@GetMapping("/getticketbyusser")
-public ResponseEntity<List<TicketResponse>> getUserTickets(@RequestParam("userid") int userId) {
-    List<TicketResponse> ticketResponses = vnPayService.getUserTickets(userId);
-    if (ticketResponses.isEmpty()) {
-        return ResponseEntity.notFound().build();
+
+
+    @Autowired
+    private VNPayServiceimpl vnpayservice;
+  //  @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/tickets/GetAll")
+    public ResponseEntity<List<TicketResponse>> getAllTickets() {
+        List<TicketResponse> tickets = ticketService.getAllTickets();
+        return ResponseEntity.ok(tickets);
     }
-    return ResponseEntity.ok(ticketResponses);
-}
+    @GetMapping("/TicketbyUserID/{userId}")
+    public ResponseEntity<List<TicketResponse>> getTicketsByUserId(@PathVariable int userId) {
+        List<TicketResponse> tickets = vnpayservice.getTicketsByUserId(userId);
+        return ResponseEntity.ok(tickets);
+    }
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getTotalByYear")
     public List<TicketResponse> getTicketByYear(@RequestParam int year) {

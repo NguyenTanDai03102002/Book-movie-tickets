@@ -13,8 +13,7 @@ public class SeatResponse {
      int id;
      int number_Seat;
      String row_Seat;
-     float price;
+     double price;
      AuditoriumResponse auditorium;
-int seatstatus;
      SeatType seatType;
 }

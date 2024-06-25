@@ -44,15 +44,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     Integer findTotalByTicketTd(@Param("ticketTd") Integer ticketTd);
 
 
-    @Query("SELECT new vnpt.movie_booking_be.dto.response.TicketResponse(u.name, t.movie.id, m.title,t.qrcode, t.screening.id, sc.date, sc.start, a.id, a.name, t.total, s.row_Seat, s.number_Seat) " +
-            "FROM Ticket t " +
-            "JOIN t.user u " +
-            "JOIN t.movie m " +
-            "JOIN t.seats s " +
-            "JOIN t.screening sc " +
-            "JOIN sc.auditorium a " +
-            "WHERE u.id = :userId")
-    List<TicketResponse> findUserTickets(@Param("userId") int userId);
 
 
     @Query(value = "SELECT * FROM Ticket WHERE YEAR(order_time) = ?1",nativeQuery = true)

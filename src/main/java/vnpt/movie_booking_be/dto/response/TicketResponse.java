@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-import vnpt.movie_booking_be.models.PaymentMethod;
 
 
 import java.time.LocalDate;
@@ -15,21 +13,25 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+
 @AllArgsConstructor
 @Builder
 public class TicketResponse {
     private String userName;
-    private int movieId;
+
     private String movieTitle;
-    private String qrcode; // Thêm trường này
-    private int screeningId;
+    private String qrcode;
+
     private LocalDate screeningDate;
     private LocalTime screeningStartTime;
-    private int auditoriumId;
+
     private String auditoriumName;
     private int total;
-    private String rowSeat;
-    private int numberSeat;
+
+    private List<SeatResponse> seats;
+private ScreeningResponse screening;
+    private Date orderTime;
+    private int userid;
 }
 
 
