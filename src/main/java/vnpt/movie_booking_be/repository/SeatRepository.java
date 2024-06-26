@@ -26,7 +26,10 @@ public interface SeatRepository extends JpaRepository<Seat,Integer> {
     @Query("SELECT s.id FROM Seat s WHERE s.id = ?1")
     List<Integer> findSeatIdById(int seatId);
 
+
     List<Seat> findByAuditorium(Auditorium auditorium);
+
+
 
 
 //    @Query("SELECT new vnpt.movie_booking_be.dto.request.TicketRequest(" +
