@@ -16,5 +16,5 @@ public class CinemaResponse {
      int id;
      String name;
      AddressResponse address;
-   //  List<AuditoriumResponse> auditoriumResponse;
+
 }
