@@ -2,6 +2,7 @@ package vnpt.movie_booking_be.service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vnpt.movie_booking_be.config.VNPayConfig;
 import vnpt.movie_booking_be.dto.response.SeatTicketResponse;
@@ -207,6 +208,21 @@ public class VNPayServiceimpl  {
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
         return ticketMapper.toTicketResponse(ticket);
+    }
+    @Transactional
+    public void removeTicketIdFromSeats(int ticketId) {
+        Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
+        if (optionalTicket.isPresent()) {
+            Ticket ticket = optionalTicket.get();
+            for (Seat seat : ticket.getSeats()) {
+                seat.getTickets().remove(ticket);
+                seatRepository.save(seat);
+            }
+            ticket.getSeats().clear();
+            ticketRepository.save(ticket);
+        } else {
+            throw new IllegalArgumentException("Ticket not found with id: " + ticketId);
+        }
     }
 
 }
