@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin("*")
 @RestController
@@ -45,4 +46,11 @@ public class TicketController {
     public List<TicketResponse> getTicketByYear(@RequestParam int year) {
         return ticketService.getTicketByYear(year);
     }
+
+    @DeleteMapping("/removeTicketIdFromSeats/{ticketId}")
+    public ResponseEntity<String> removeTicketIdFromSeats(@PathVariable int ticketId) {
+        vnpayservice.removeTicketIdFromSeats(ticketId);
+        return ResponseEntity.ok("Ticket ID removed from seats successfully.");
+    }
+
 }
