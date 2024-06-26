@@ -13,6 +13,6 @@ public interface CinemaMapper {
 
     void updateCinema(@MappingTarget Cinema cinema,CinemaCreationRequest request);
 
-    @Mapping(source = "auditoriums", target = "auditoriumResponse")
+  //  @Mapping(source = "auditoriums", target = "auditoriumResponse")
     CinemaResponse toCinemaResponse(Cinema cinema);
 }
