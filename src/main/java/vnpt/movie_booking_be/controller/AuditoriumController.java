@@ -31,5 +31,17 @@ public class AuditoriumController {
     public void createAuditoriumForCinema(@PathVariable int cinemaId, @RequestBody AuditoriumCreationRequest request){
         auditoriumService.createAuditoriumForCinema(cinemaId,request);
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @DeleteMapping("/deleteAuditoriumForCinema/{auditoriumId}")
+    public void deleteAuditoriumForCinema(@PathVariable int auditoriumId){
+        auditoriumService.deleteAuditoriumForCinema(auditoriumId);
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PutMapping("/updateAuditoriumForCinema/{auditoriumId}")
+    public void updateAuditoriumForCinema(@PathVariable int auditoriumId, @RequestBody AuditoriumCreationRequest request){
+        auditoriumService.updateAuditoriumForCinema(auditoriumId,request);
+    }
     
 }

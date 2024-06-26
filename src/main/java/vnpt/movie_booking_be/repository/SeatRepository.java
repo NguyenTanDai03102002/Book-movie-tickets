@@ -27,6 +27,11 @@ public interface SeatRepository extends JpaRepository<Seat,Integer> {
     List<Integer> findSeatIdById(int seatId);
 
 
+    List<Seat> findByAuditorium(Auditorium auditorium);
+
+
+
+
 //    @Query("SELECT new vnpt.movie_booking_be.dto.request.TicketRequest(" +
 //            "t.total, mov.title, scr.date, scr.start, scr.auditorium.name, CONCAT(seat.row_Seat, seat.number_Seat), usr.name)" +
 //            " FROM Ticket t " +
