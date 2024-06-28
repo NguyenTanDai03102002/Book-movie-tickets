@@ -32,6 +32,7 @@ public class TicketResponse {
 private ScreeningResponse screening;
     private Date orderTime;
     private int userid;
+    private VourcherRespone vourcher;
 }
 
 

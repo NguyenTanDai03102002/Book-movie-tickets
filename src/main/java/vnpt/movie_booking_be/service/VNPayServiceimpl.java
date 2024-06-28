@@ -32,11 +32,14 @@ public class VNPayServiceimpl  {
 
     @Autowired
     private MovieRepository movieRepository;
-
+    @Autowired
+    private VourcherRepository vourcherRepository;
     @Autowired
     private ScreeningRepository screeningRepository;
     @Autowired
     private AuditoriumRepository auditoriumRepository;
+    @Autowired
+    private VourcherService voucherService;
     public String createOrder(int total, String orderInfor, String urlReturn){
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -144,12 +147,20 @@ public class VNPayServiceimpl  {
 
     //    @Autowired
 //    private UserRepository userRepository;
-    public Ticket createTicket(int total, List<Integer> seatIds, int screeningId, int userId, int movieId) {
+    public Ticket createTicket(int total, List<Integer> seatIds, int screeningId, int userId, int movieId,int voucherID) {
         Ticket ticket = new Ticket();
         ticket.setTotal(total);
         ticket.setOrderTime(new Date());
         ticket.setStatus(0);
         ticket.setPaymentMethod(PaymentMethod.VNPAY);
+        if (voucherID != 0) {
+            Vourcher voucher = vourcherRepository.findById(voucherID)
+                    .orElseThrow(() -> new RuntimeException("Vourcher not found"));
+            ticket.setVourcher(voucher);
+            voucherService.decrementNumber(voucherID);
+
+          //  vourcher.decrementNumber(voucherID);
+        }
 
         // Retrieve movie, screening, and user from their respective repositories
         Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found"));
