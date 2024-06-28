@@ -19,6 +19,7 @@ public interface TicketMapper {
     @Mapping(source = "screening.date", target = "screeningDate")
     @Mapping(source = "screening.start", target = "screeningStartTime") @Mapping(source = "screening.auditorium.name", target = "auditoriumName")
     @Mapping(source = "seats", target = "seats", qualifiedByName = "mapSeats")
+    @Mapping(source = "vourcher", target = "vourcher", qualifiedByName = "mapVourcher")
    // @Mapping(source = "screening.auditorium", target = "auditorium", qualifiedByName = "mapAuditorium")
     //@Mapping(source = "screening.auditorium.cinema", target = "cinema", qualifiedByName = "mapCinema")
    // @Mapping(source = "screening.auditorium.cinema.address", target = "address", qualifiedByName = "mapAddress")
@@ -113,6 +114,17 @@ public interface TicketMapper {
         return GenreResponse.builder()
                 .id(genre.getId())
                 .name(genre.getName())
+                .build();
+    }
+    @Named("mapVourcher")
+    default VourcherRespone toAuditoriumResponse(Vourcher vourcher) {
+        return VourcherRespone.builder()
+                .id(vourcher.getId())
+                .content(vourcher.getContent())
+                .endDateTime(vourcher.getEndDateTime())
+                .startDateTime(vourcher.getStartDateTime())
+                .discount(vourcher.getDiscount())
+                .number(vourcher.getNumber())
                 .build();
     }
 }

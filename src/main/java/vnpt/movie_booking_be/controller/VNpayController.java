@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import vnpt.movie_booking_be.dto.response.SeatResponse;
 import vnpt.movie_booking_be.dto.response.TicketResponse;
 import vnpt.movie_booking_be.dto.response.Urlrespone;
+import vnpt.movie_booking_be.dto.response.VourcherRespone;
 import vnpt.movie_booking_be.models.Ticket;
 import vnpt.movie_booking_be.service.QRCODE;
 import vnpt.movie_booking_be.service.VNPayServiceimpl;
+import vnpt.movie_booking_be.service.VourcherService;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -26,6 +28,8 @@ public class VNpayController {
     private VNPayServiceimpl vnPayService;
     @Autowired
     private QRCODE qrcode;
+    @Autowired
+    private VourcherService voucherService;
 
     @GetMapping("")
     public String home() {
@@ -36,7 +40,8 @@ public class VNpayController {
                               @RequestParam("seatIds") List<Integer> seatIds,  // lay ra tenghe
                               @RequestParam("screeningId") int screeningId,  // -> phongid, name id
                               @RequestParam("userId") int userId,  // user name
-                              @RequestParam("movieId") int movieId,  // movie name
+                              @RequestParam("movieId") int movieId,
+                                              @RequestParam("voucherID") int vourcherID,// movie name
                               HttpServletRequest request) {
         // Xử lý các seatIds để tạo chuỗi seat_ID
         StringBuilder seatIDBuilder = new StringBuilder();
@@ -51,7 +56,7 @@ public class VNpayController {
 
 
         // Tạo orderInfo từ các tham số đầu vào
-        String orderInfo = movieId + "/" + screeningId + "/" + userId + "/" + orderTotal + "/" + seat_ID;
+        String orderInfo = movieId + "/" + screeningId + "/" + userId + "/" + orderTotal +"/" +vourcherID +"/" + seat_ID;
 
         // Xác định baseUrl
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
@@ -125,12 +130,14 @@ if(paymentStatus == 1) {
         String screeningID = infoParts.length > 1 ? infoParts[1] : "";
         String userID = infoParts.length > 2 ? infoParts[2] : "";
         String orderTotal = infoParts.length > 3 ? infoParts[3] : "";
-        String seat_ID = infoParts.length > 4 ? infoParts[4] : "";
+    String Vourcher_ID = infoParts.length > 4 ? infoParts[4] : "";
+        String seat_ID = infoParts.length > 5 ? infoParts[5] : "";
 
         int movieId = Integer.parseInt(movieID);
         int screeningId = Integer.parseInt(screeningID);
         int userId = Integer.parseInt(userID);
         int orderTotalInt = Integer.parseInt(orderTotal);
+        int Voucher_Id = Integer.parseInt(Vourcher_ID);
 
         // Xử lý danh sách seat IDs
         String[] listSeatID = seat_ID.split(",");
@@ -144,7 +151,7 @@ if(paymentStatus == 1) {
             }
         }
         // Tạo vé và cập nhật QR code
-        Ticket ticket = vnPayService.createTicket(orderTotalInt, listSeatIds, screeningId, userId, movieId);
+        Ticket ticket = vnPayService.createTicket(orderTotalInt, listSeatIds, screeningId, userId, movieId,Voucher_Id);
         int ticketId = ticket.getId();
         vnPayService.updateQRCodeByTicketId(ticketId, qrCode);
         TicketResponse ticketResponse = vnPayService.getTicketById(ticketId);
