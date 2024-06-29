@@ -104,6 +104,11 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
     @Override
     public void deleteAuditoriumForCinema(int auditoriumId) {
+        Auditorium auditorium = auditoriumRepository.findById(auditoriumId).orElseThrow(() -> new RuntimeException("auditorium not found"));
+        if(!auditorium.getScreenings().isEmpty()){
+            throw new RuntimeException("Auditorium is linked to screenings and cannot be deleted.");
+        }
+
         auditoriumRepository.deleteById(auditoriumId);
     }
 
