@@ -48,4 +48,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
     @Query(value = "SELECT * FROM Ticket WHERE YEAR(order_time) = ?1",nativeQuery = true)
     List<Ticket> findAllByYear(int year);
+
+    @Query("SELECT s.movie, COALESCE(SUM(t.total), 0) FROM Screening s LEFT JOIN Ticket t ON s.id = t.screening.id GROUP BY s.movie")
+    List<Object[]> getTotalAmountGroupedByMovie();
+
+    @Query("SELECT t FROM Ticket t JOIN t.screening s JOIN s.auditorium a JOIN a.cinema c WHERE c.id = :cinemaId AND YEAR(s.date) = :year")
+    List<Ticket> getTicketTotal(int cinemaId, int year);
 }
