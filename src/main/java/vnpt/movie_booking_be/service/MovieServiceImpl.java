@@ -42,7 +42,16 @@ public class MovieServiceImpl implements MovieService{
                 .collect(Collectors.toList());
     }
 
-
+    @Override
+    public List<MovieResponse> getAllMoviesDelete() {
+        List<Movie> movies = movieRepository.findAll();
+        LocalDate today = LocalDate.now();
+        return movies.stream()
+                .filter(movie -> !movie.isActive()) // Chỉ lấy các bộ phim có isActive = true
+                // .filter(movie -> movie.getRelease_date().isBefore(today) && movie.getEnd_date().isAfter(today)) // Nếu bạn muốn áp dụng thêm điều kiện này
+                .map(movie -> movieMapper.movieToMovieResponse(movie))
+                .collect(Collectors.toList());
+    }
     @Override
     public void createMovie(String title, Set<Integer> genreIds, String description,
                              MultipartFile file, MultipartFile video,

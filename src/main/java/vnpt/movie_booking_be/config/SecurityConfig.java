@@ -43,6 +43,8 @@ public class SecurityConfig {
                                         "/getticketbyusser",
 "/TicketbyUserID/**",
 "/tickets/GetAll",
+                                        "/memberships/**",
+//                                "/user/**",
                                 "/vourchers/**",
                                 "/getAll",
                                 "/removeTicketIdFromSeats/**",

@@ -105,7 +105,8 @@ public class VNpayController {
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
-if(paymentStatus == 1) {
+if(paymentStatus == 1)  // thanh toan thành công
+{
 
         // Lấy các thông tin từ request
 
@@ -138,6 +139,7 @@ if(paymentStatus == 1) {
         int userId = Integer.parseInt(userID);
         int orderTotalInt = Integer.parseInt(orderTotal);
         int Voucher_Id = Integer.parseInt(Vourcher_ID);
+        vnPayService.updateUserMembershipByRankPrice(userId,orderTotalInt);  // thanh toan ok nhận vào user id và tiền đơn hàng cập nhật lại tiền user đã dùng , cập nhật lại membership
 
         // Xử lý danh sách seat IDs
         String[] listSeatID = seat_ID.split(",");

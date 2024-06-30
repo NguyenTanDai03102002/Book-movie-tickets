@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vnpt.movie_booking_be.config.VNPayConfig;
+import vnpt.movie_booking_be.dto.response.MembershipResponse;
 import vnpt.movie_booking_be.dto.response.SeatTicketResponse;
 import vnpt.movie_booking_be.dto.response.TicketResponse;
+import vnpt.movie_booking_be.mapper.MembershipMapper;
 import vnpt.movie_booking_be.mapper.TicketMapper;
 import vnpt.movie_booking_be.models.*;
 import vnpt.movie_booking_be.repository.*;
@@ -29,7 +31,8 @@ public class VNPayServiceimpl  {
 
     @Autowired
     private SeatRepository seatRepository;
-
+@Autowired
+private MembershipRepository membershipRepository;
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
@@ -235,5 +238,91 @@ public class VNPayServiceimpl  {
             throw new IllegalArgumentException("Ticket not found with id: " + ticketId);
         }
     }
+    @Transactional
+    public void updateUserMembershipByRankPrice(int userId, int rankPriceIncrement) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-}
+        int currentTotalPrice = user.getTotalprice();
+        int newTotalPrice = currentTotalPrice + rankPriceIncrement;
+
+        // Lấy tất cả các Membership từ cơ sở dữ liệu
+        List<Membership> memberships = membershipRepository.findAll();
+
+        // Tìm Membership phù hợp nhất dựa trên giá trị mới của TotalPrice
+        Membership newMembership = null;
+        for (Membership membership : memberships) {
+            if (newTotalPrice >= membership.getRankprice()) {
+                newMembership = membership;
+              //  break;  // lấy ra rank price lớn hơn đầu tiên r break
+            }
+        }
+
+        if (newMembership != null) {
+            user.setMembership(newMembership);
+            user.setTotalprice(newTotalPrice);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("Appropriate membership not found for the given rank price");
+        }
+    }
+    @Transactional
+    public void updateUserMembershipByRankPriceAfterEdit(int userId, int rankPriceIncrement) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        int currentTotalPrice = user.getTotalprice();
+        int newTotalPrice =  rankPriceIncrement;
+
+        // Lấy tất cả các Membership từ cơ sở dữ liệu
+        List<Membership> memberships = membershipRepository.findAll();
+
+        // Tìm Membership phù hợp nhất dựa trên giá trị mới của TotalPrice
+        Membership newMembership = null;
+        for (Membership membership : memberships) {
+            if (newTotalPrice >= membership.getRankprice()) {
+                newMembership = membership;
+                //  break;  // lấy ra rank price lớn hơn đầu tiên r break
+            }
+        }
+
+        if (newMembership != null) {
+            user.setMembership(newMembership);
+         //   user.setTotalprice(newTotalPrice);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("Appropriate membership not found for the given rank price");
+        }
+    }
+    @Autowired
+    private MembershipMapper membershipMapper;
+    @Transactional
+    public MembershipResponse createMembership(Membership membership) {
+        Membership savedMembership = membershipRepository.save(membership);
+        return membershipMapper.toMembershipResponse(savedMembership);
+    }
+    @Transactional
+    public MembershipResponse updateMembership(int id, Membership membershipDetails) {
+        Membership membership = membershipRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Membership not found"));
+
+        membership.setName(membershipDetails.getName());
+        membership.setDescription(membershipDetails.getDescription());
+        membership.setDiscount_rate(membershipDetails.getDiscount_rate());
+        membership.setRankprice(membershipDetails.getRankprice());
+
+        Membership updatedMembership = membershipRepository.save(membership);
+        return membershipMapper.toMembershipResponse(updatedMembership);
+    }
+    @Transactional
+    public List<MembershipResponse> getAllMemberships() {
+        List<Membership> memberships = membershipRepository.findAll();
+        return memberships.stream()
+                .map(membershipMapper::toMembershipResponse)
+
+                .collect(Collectors.toList());
+    }
+    }
+
+
+

@@ -18,9 +18,9 @@ public class User {
     private int id;
 
     private String name;
-    
+
     private String email;
-    
+
     private String phone;
 
     private String password;
@@ -28,24 +28,24 @@ public class User {
     private Boolean enabled;
 
     private String code;
-
+    private int totalprice; // Đảm bảo trường này có trong lớp User
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Membership membership;
-    
-    @ManyToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
-	@JoinTable(name ="users_roles" ,
-			joinColumns = @JoinColumn(name = "user_id") , 
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)

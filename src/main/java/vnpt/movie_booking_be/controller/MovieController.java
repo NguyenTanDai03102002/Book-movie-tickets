@@ -24,7 +24,10 @@ public class MovieController {
     public List<MovieResponse> getAllMovies() {
         return movieService.getAllMovies();
     }
-
+    @GetMapping("/getAllMovieDelte")
+    public List<MovieResponse> getAllMovieDelte() {
+        return movieService.getAllMoviesDelete();
+    }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/create")
     public void createMovie(@RequestParam("title") String title,

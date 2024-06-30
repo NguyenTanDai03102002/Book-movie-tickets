@@ -62,9 +62,9 @@ private VourcherRepository voucherRepository;
         }
 
         //MEMBERSHIP
-        membershipRepository.save(Membership.builder().name("Đồng").description("Đồng").discount_rate(0.0f).build());
-        membershipRepository.save(Membership.builder().name("Bạc").description("Bạc").discount_rate(0.05f).build());
-        membershipRepository.save(Membership.builder().name("Vàng").description("vàng").discount_rate(0.1f).build());
+        membershipRepository.save(Membership.builder().name("Đồng").description("Đồng").discount_rate(0.0).rankprice(0).build());
+        membershipRepository.save(Membership.builder().name("Bạc").description("Bạc").discount_rate(0.05).rankprice(300000).build());
+        membershipRepository.save(Membership.builder().name("Vàng").description("vàng").discount_rate(0.1).rankprice(500000).build());
 
         //ROLE
         Role adminRole = roleRepository.save(Role.builder().name("ADMIN").build());
