@@ -322,6 +322,12 @@ private MembershipRepository membershipRepository;
 
                 .collect(Collectors.toList());
     }
+    @Transactional
+    public MembershipResponse getMembershipById(int id) {
+        Membership membership = membershipRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Membership not found"));
+        return membershipMapper.toMembershipResponse(membership);
+    }
     }
 
 

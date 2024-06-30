@@ -28,7 +28,7 @@ public class MovieController {
     public List<MovieResponse> getAllMovieDelte() {
         return movieService.getAllMoviesDelete();
     }
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+   @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/create")
     public void createMovie(@RequestParam("title") String title,
                              @RequestParam("description") String description,
@@ -46,7 +46,7 @@ public class MovieController {
                 director, casts, duration, rating, releaseDate, endDate);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+   @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Integer id, @RequestParam String title,
                                              @RequestParam Set<Integer> genreIds, @RequestParam String description,
