@@ -29,5 +29,8 @@ public class MembershipController {
     public List<MembershipResponse> getAllMemberships() {
         return membershipService.getAllMemberships();
     }
-
+    @GetMapping("/{id}")
+    public MembershipResponse getMembershipById(@PathVariable int id) {
+        return membershipService.getMembershipById(id);
+    }
 }
