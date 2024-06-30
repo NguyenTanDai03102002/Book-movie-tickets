@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService{
     public void updateUser(int userid, UserCreationRequest request) {
         User user = getUser(userid);
         userMapper.updateUser(user,request);
+        user.setPassword (passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
