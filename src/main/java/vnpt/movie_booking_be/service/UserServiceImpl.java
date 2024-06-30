@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService{
             user = userMapper.toUser(request);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setMembership(membership);
+            user.setTotalprice(0);
             user.setRoles(Collections.singleton(userRole));
             user.setEnabled(false);
             user.setCode(UUID.randomUUID().toString());
@@ -96,15 +97,21 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(userid).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+//    @Override
+//    public List<UserResponse> getAllUsers() {
+//        Role roleUser = roleRepository.findByName("USER");
+//        List<User> users = userRepository.findByRolesContains(roleUser);
+//        return users.stream()
+//                .map(user -> userMapper.userToUserResponse(user))
+//                .collect(Collectors.toList());
+//    }
     @Override
     public List<UserResponse> getAllUsers() {
-        Role roleUser = roleRepository.findByName("USER");
-        List<User> users = userRepository.findByRolesContains(roleUser);
+        List<User> users = userRepository.findAll();
         return users.stream()
-                .map(user -> userMapper.userToUserResponse(user))
+                .map(userMapper::userToUserResponse)
                 .collect(Collectors.toList());
     }
-
     @Override
     public void disableAccount(int userId) {
         User user = getUser(userId);

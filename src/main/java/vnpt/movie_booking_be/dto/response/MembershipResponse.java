@@ -13,5 +13,6 @@ public class MembershipResponse {
      int id;
      String name;
      String description;
-     float discount_rate;
+     double discount_rate;
+     int rankprice; // Đổi tên trường thành rankprice
 }

@@ -16,6 +16,7 @@ public class UserResponse {
      String name;
      String email;
      String phone;
+     int totalprice; // Đảm bảo trường này có trong lớp UserResponse
      @JsonIgnore
      String password;
      AddressResponse address;
